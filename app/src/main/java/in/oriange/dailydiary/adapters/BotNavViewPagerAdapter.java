@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import in.oriange.dailydiary.fragments.Fragment1_Fragment;
-import in.oriange.dailydiary.fragments.Fragment2_Fragment;
-import in.oriange.dailydiary.fragments.Fragment3_Fragment;
-import in.oriange.dailydiary.fragments.Fragment4_Fragment;
+import in.oriange.dailydiary.fragments.Home_Fragment;
+import in.oriange.dailydiary.fragments.Notification_Fragment;
+import in.oriange.dailydiary.fragments.Shopping_Fragment;
+import in.oriange.dailydiary.fragments.Time_Fragment;
 
 public class BotNavViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -21,10 +21,10 @@ public class BotNavViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
 
         fragments.clear();
-        fragments.add(new Fragment1_Fragment());
-        fragments.add(new Fragment2_Fragment());
-        fragments.add(new Fragment3_Fragment());
-        fragments.add(new Fragment4_Fragment());
+        fragments.add(new Home_Fragment());
+        fragments.add(new Shopping_Fragment());
+        fragments.add(new Notification_Fragment());
+        fragments.add(new Time_Fragment());
     }
 
     @Override

@@ -34,10 +34,10 @@
             </intent-filter>
         </activity>
         <!--<activity-->
-            <!--android:name=".activities.MainDrawer_Activity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/AppTheme.NoActionBar"-->
-            <!--android:windowSoftInputMode="stateHidden" />-->
+        <!--android:name=".activities.MainDrawer_Activity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/AppTheme.NoActionBar"-->
+        <!--android:windowSoftInputMode="stateHidden" />-->
     </application>
 
 </manifest>
