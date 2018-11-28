@@ -38,6 +38,11 @@
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/AppTheme.NoActionBar"-->
         <!--android:windowSoftInputMode="stateHidden" />-->
+        <activity
+            android:name=".activities.Login_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
