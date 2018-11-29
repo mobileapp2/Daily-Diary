@@ -1,72 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.daimajia.slider.library.SliderLayout
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:visibility="gone"
-        custom:auto_cycle="true"
-        custom:indicator_visibility="visible"
-        custom:pager_animation="Accordion"
-        custom:pager_animation_span="1100" />
-
-    <com.daimajia.slider.library.Indicators.PagerIndicator
-        android:id="@+id/custom_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:visibility="gone"
-        custom:selected_color="#0095BF"
-        custom:selected_drawable="@drawable/bird"
-        custom:selected_height="6dp"
-        custom:selected_padding_left="5dp"
-        custom:selected_padding_right="5dp"
-        custom:selected_width="6dp"
-        custom:shape="oval"
-        custom:unselected_color="#55333333"
-        custom:unselected_height="6dp"
-        custom:unselected_padding_left="5dp"
-        custom:unselected_padding_right="5dp"
-        custom:unselected_width="6dp" />
-
-    <com.daimajia.slider.library.Indicators.PagerIndicator
-        android:id="@+id/custom_indicator2"
-        style="@style/AndroidImageSlider_Corner_Oval_Orange"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone" />
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v4.view.ViewPager
+        <FrameLayout
+            android:id="@+id/fl_fragmentlayout"
             android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation" />
 
         <com.luseen.spacenavigation.SpaceNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="@android:color/transparent"
             app:active_item_color="@color/colorAccent"
             app:centre_button_color="@color/white"
             app:space_background_color="@color/lightGray" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
