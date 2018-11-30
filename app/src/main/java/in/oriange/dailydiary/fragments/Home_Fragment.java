@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -29,7 +31,8 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
 
     private Context context;
     private SliderLayout mDemoSlider;
-    private CoordinatorLayout main_content;
+    private LinearLayout main_content;
+    private EditText edt_location;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
 
     private void init(View rootView) {
         mDemoSlider = rootView.findViewById(R.id.slider);
+        edt_location = rootView.findViewById(R.id.edt_location);
         main_content = getActivity().findViewById(R.id.main_content);
 
     }
@@ -68,51 +72,32 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
 
     private void setSlider(JSONArray bannerJsonArray) {
 
-        for (int i = 0; i < bannerJsonArray.length(); i++) {
-            try {
+        try {
+            for (int i = 0; i < bannerJsonArray.length(); i++) {
                 JSONObject jsonObject = bannerJsonArray.getJSONObject(i);
 
                 TextSliderView textSliderView = new TextSliderView(context);
                 textSliderView
                         .description(jsonObject.getString("BannerText"))
-                        .image(jsonObject.getString("BannerImagePath"))
-//                        .image("http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg")
-                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .image(ApplicationConstants.BANNERIMAGE + "" + jsonObject.getString("BannerImagePath"))
+//                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setScaleType(BaseSliderView.ScaleType.CenterInside)
                         .setOnSliderClickListener(this);
 
                 textSliderView.bundle(new Bundle());
                 textSliderView.getBundle().putString("extra", jsonObject.getString("BannerText"));
 
                 mDemoSlider.addSlider(textSliderView);
-                mDemoSlider.setCurrentPosition(0, true);
-                mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-                mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-                mDemoSlider.setDuration(5000);
-                mDemoSlider.movePrevPosition();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
+            mDemoSlider.setCurrentPosition(0, true);
+            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            mDemoSlider.setDuration(5000);
+            mDemoSlider.movePrevPosition();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-//        for (String name : url_maps.keySet()) {
-//            TextSliderView textSliderView = new TextSliderView(context);
-//            textSliderView
-//                    .description(name)
-//                    .image(url_maps.get(name))
-//                    .setScaleType(BaseSliderView.ScaleType.Fit)
-//                    .setOnSliderClickListener(this);
-//
-//            textSliderView.bundle(new Bundle());
-//            textSliderView.getBundle().putString("extra", name);
-//
-//            mDemoSlider.addSlider(textSliderView);
-//
-//            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-//            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-//            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-//            mDemoSlider.setDuration(5000);
-//            mDemoSlider.addOnPageChangeListener(this);
-//        }
+
     }
 
     @Override

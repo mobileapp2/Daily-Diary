@@ -13,11 +13,13 @@ public class ApplicationConstants {
 
     // BETA API LINK LIST
 
-    public static final String PARENTAPI = "http://mazalatur.com/DailyDiary/Apis/";
+    public static final String PARENTAPI = "https://mazalatur.com/DailyDiary/Apis/";
+    public static final String BANNERIMAGE = "https://mazalatur.com/DailyDiary/Images/Banners/";
 
     //LIVE API LINK LIST
 
 //    public static final String PARENTAPI = "";
+//    public static final String BANNERIMAGE = "";
 
     //API NAMES
 

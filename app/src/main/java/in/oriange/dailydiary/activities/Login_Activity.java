@@ -9,10 +9,6 @@ import in.oriange.dailydiary.R;
 
 public class Login_Activity extends AppCompatActivity {
 
-    private Context context;
-    private LinearLayout ll_mainlayout;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +18,6 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void init() {
-        context = Login_Activity.this;
-        ll_mainlayout = findViewById(R.id.ll_mainlayout);
     }
 
 }

@@ -1,7 +1,9 @@
 package in.oriange.dailydiary.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -20,7 +22,7 @@ import in.oriange.dailydiary.fragments.Notification_Fragment;
 import in.oriange.dailydiary.fragments.Shopping_Fragment;
 import in.oriange.dailydiary.fragments.Time_Fragment;
 
-public class MainDrawer_Activity extends AppCompatActivity {
+public class MainDrawer_Activity extends FragmentActivity {
 
     private Context context;
     private SpaceNavigationView bottom_navigation;
@@ -117,8 +119,7 @@ public class MainDrawer_Activity extends AppCompatActivity {
     }
 
     private void setUpToolbar() {
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.app_layout);
+
     }
 
     @Override

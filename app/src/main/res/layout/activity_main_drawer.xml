@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edt_location"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableRight="@drawable/icon_dropdown"
+                android:text="Pick Location"
+                android:focusable="false"
+                android:longClickable="false"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                app:backgroundTint="@color/black" />
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,4 +59,4 @@
             app:space_background_color="@color/lightGray" />
 
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
