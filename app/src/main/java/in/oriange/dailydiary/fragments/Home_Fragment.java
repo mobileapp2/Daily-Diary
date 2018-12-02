@@ -1,11 +1,13 @@
 package in.oriange.dailydiary.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,24 +17,35 @@ import android.widget.LinearLayout;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import in.oriange.dailydiary.R;
+import in.oriange.dailydiary.activities.GetPinCode_Activity;
+import in.oriange.dailydiary.adapters.GetTopProductsListAdapter;
+import in.oriange.dailydiary.models.TopProductsModel;
+import in.oriange.dailydiary.models.TopProductsPojo;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
+import in.oriange.dailydiary.utilities.UserSessionManager;
 import in.oriange.dailydiary.utilities.Utilities;
 import in.oriange.dailydiary.utilities.WebServiceCalls;
 
-public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class Home_Fragment extends Fragment implements View.OnClickListener /*implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener*/ {
 
     private Context context;
+    private UserSessionManager session;
     private SliderLayout mDemoSlider;
     private LinearLayout main_content;
     private EditText edt_location;
+    private RecyclerView rv_topproducts;
+    private ArrayList<TopProductsModel> topProductsList;
+    private String state, city, locality, pincode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -46,17 +59,47 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
     }
 
     private void init(View rootView) {
+        session = new UserSessionManager(context);
         mDemoSlider = rootView.findViewById(R.id.slider);
         edt_location = rootView.findViewById(R.id.edt_location);
         main_content = getActivity().findViewById(R.id.main_content);
+        rv_topproducts = rootView.findViewById(R.id.rv_topproducts);
+        rv_topproducts.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
+        topProductsList = new ArrayList<>();
     }
 
     private void getSessionData() {
 
+
+        String placeStr = "";
+        if (city.isEmpty()) {
+            placeStr = locality + ", " + pincode;
+        } else if (locality.isEmpty()) {
+            placeStr = city + ", " + pincode;
+        } else if (pincode.isEmpty()) {
+            placeStr = city + ", " + locality;
+        } else {
+            placeStr = city + ", " + locality + ", " + pincode;
+        }
+
+        edt_location.setText(placeStr);
+
+        try {
+            JSONObject pincodeInfo = new JSONObject(session.getPincodeDetails().get(ApplicationConstants.KEY_PINCODE_INFO));
+            state = pincodeInfo.getString("state");
+            city = pincodeInfo.getString("city");
+            locality = pincodeInfo.getString("locality");
+            pincode = pincodeInfo.getString("pincode");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void setDefault() {
+
 
         if (Utilities.isInternetAvailable(context)) {
             new GetBanners().execute();
@@ -64,11 +107,27 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
             Utilities.showSnackBar(main_content, "Please Check Internet Connection");
         }
 
+        if (Utilities.isInternetAvailable(context)) {
+            new GetTopProducts().execute();
+        } else {
+            Utilities.showSnackBar(main_content, "Please Check Internet Connection");
+        }
+
     }
 
     private void setEventHandlers() {
-
+        edt_location.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.edt_location:
+                startActivity(new Intent(context, GetPinCode_Activity.class));
+                break;
+        }
+    }
+
 
     private void setSlider(JSONArray bannerJsonArray) {
 
@@ -81,8 +140,8 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
                         .description(jsonObject.getString("BannerText"))
                         .image(ApplicationConstants.BANNERIMAGE + "" + jsonObject.getString("BannerImagePath"))
 //                        .setScaleType(BaseSliderView.ScaleType.Fit)
-                        .setScaleType(BaseSliderView.ScaleType.CenterInside)
-                        .setOnSliderClickListener(this);
+                        .setScaleType(BaseSliderView.ScaleType.CenterInside);
+//                        .setOnSliderClickListener(this);
 
                 textSliderView.bundle(new Bundle());
                 textSliderView.getBundle().putString("extra", jsonObject.getString("BannerText"));
@@ -97,26 +156,6 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public void onSliderClick(BaseSliderView slider) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
 
     }
 
@@ -158,5 +197,52 @@ public class Home_Fragment extends Fragment implements BaseSliderView.OnSliderCl
             }
         }
     }
+
+    public class GetTopProducts extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String res = "[]";
+            JsonObject obj = new JsonObject();
+            obj.addProperty("type", "GetItemsByPincode");
+            obj.addProperty("pincode", "413512");
+            res = WebServiceCalls.JSONAPICall(ApplicationConstants.getItem, obj.toString());
+            return res.trim();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            String type = "", message = "";
+            try {
+                if (!result.equals("")) {
+                    JSONObject mainObj = new JSONObject(result);
+                    topProductsList = new ArrayList<>();
+                    TopProductsPojo empPojo = new Gson().fromJson(result, TopProductsPojo.class);
+                    type = empPojo.getType();
+                    message = empPojo.getMessage();
+                    if (type.equalsIgnoreCase("success")) {
+                        topProductsList = empPojo.getData();
+                        ArrayList<TopProductsModel> horiProductList = new ArrayList<>();
+
+                        if (topProductsList.size() > 0) {
+                            for (int i = 0; i < 3; i++) {
+                                horiProductList.add(topProductsList.get(i));
+                            }
+                            rv_topproducts.setAdapter(new GetTopProductsListAdapter(context, horiProductList));
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }

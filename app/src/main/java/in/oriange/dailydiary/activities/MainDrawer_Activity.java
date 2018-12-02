@@ -1,19 +1,21 @@
 package in.oriange.dailydiary.activities;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
+
+import org.json.JSONObject;
 
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.fragments.BottomSheetMenu_Fragment;
@@ -21,14 +23,16 @@ import in.oriange.dailydiary.fragments.Home_Fragment;
 import in.oriange.dailydiary.fragments.Notification_Fragment;
 import in.oriange.dailydiary.fragments.Shopping_Fragment;
 import in.oriange.dailydiary.fragments.Time_Fragment;
+import in.oriange.dailydiary.utilities.ApplicationConstants;
+import in.oriange.dailydiary.utilities.UserSessionManager;
 
-public class MainDrawer_Activity extends FragmentActivity {
+public class MainDrawer_Activity extends FragmentActivity{
 
     private Context context;
+    private UserSessionManager session;
     private SpaceNavigationView bottom_navigation;
     private FrameLayout fl_fragmentlayout;
     public static final String TAG = "bottom_sheet";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +40,16 @@ public class MainDrawer_Activity extends FragmentActivity {
         setContentView(R.layout.activity_main_drawer);
 
         init();
+        getSessionData();
         setBottomNavigation();
         setDefaults();
         setEventListner();
-        setUpToolbar();
 
     }
 
     private void init() {
+        context = MainDrawer_Activity.this;
+        session = new UserSessionManager(context);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         fl_fragmentlayout = findViewById(R.id.fl_fragmentlayout);
 
@@ -60,6 +66,11 @@ public class MainDrawer_Activity extends FragmentActivity {
         bottom_navigation.setCentreButtonIconColorFilterEnabled(false);
         bottom_navigation.showIconOnly();
     }
+
+    private void getSessionData() {
+
+    }
+
 
     private void setDefaults() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -116,10 +127,6 @@ public class MainDrawer_Activity extends FragmentActivity {
                 Log.d("onItemReselected ", "" + itemIndex + " " + itemName);
             }
         });
-    }
-
-    private void setUpToolbar() {
-
     }
 
     @Override

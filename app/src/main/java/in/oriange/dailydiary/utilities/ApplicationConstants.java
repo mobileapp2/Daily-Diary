@@ -9,6 +9,8 @@ public class ApplicationConstants {
     public static final String IS_USER_LOGIN = "IS_USER_LOGIN";
     public static final String KEY_LOGIN_INFO = "KEY_LOGIN_INFO";
     public static final String KEY_ANDROIDTOKETID = "KEY_ANDROIDTOKETID";
+    public static final String IS_PINCODE_SET = "IS_PINCODE_SET";
+    public static final String KEY_PINCODE_INFO = "KEY_PINCODE_INFO";
 
 
     // BETA API LINK LIST
@@ -24,4 +26,5 @@ public class ApplicationConstants {
     //API NAMES
 
     public static final String banners = "banners.php";
+    public static final String getItem = "getItem.php";
 }

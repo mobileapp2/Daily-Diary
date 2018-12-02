@@ -3,9 +3,13 @@ package in.oriange.dailydiary.utilities;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -18,6 +22,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import in.oriange.dailydiary.R;
 
 public class Utilities {
 
@@ -92,23 +98,40 @@ public class Utilities {
     }
 
     @SuppressWarnings("deprecation")
-//    public static void showAlertDialog(Context context, String title,
-//                                       String message, Boolean status) {
-//        alertDialog = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
-//        alertDialog.setTitle(title);
-//        alertDialog.setMessage(message);
-//        if (status != null)
-//            alertDialog.setIcon((status) ? R.drawable.ic_success_24dp : R.drawable.ic_alert_red_24dp);
-//        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//        AlertDialog alertD = alertDialog.create();
-//        alertD.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationTheme;
-//        alertD.show();
-//    }
+    public static void showAlertDialog(Context context, String title,
+                                       String message, Boolean status) {
+        alertDialog = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        if (status != null)
+            alertDialog.setIcon((status) ? R.drawable.icon_success : R.drawable.icon_alertred);
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertD = alertDialog.create();
+        alertD.show();
+    }
+
+    public static boolean isPinCode(EditText edt) {
+        edt.setError(null);
+        if ((edt.getText().toString().trim().length() == 6)
+                && (isValidPinCode(edt.getText().toString().trim())))
+            return true;
+        else {
+            edt.setError("Please Enter Valid Pincode");
+            return false;
+        }
+    }
+
+    private static boolean isValidPinCode(String pinCode) {
+        String PINCODE_PATTERN = "^[1-9][0-9]{5}$";                                        //^[+]?[0-9]{10,13}$
+        Pattern pattern = Pattern.compile(PINCODE_PATTERN);
+        Matcher matcher = pattern.matcher(pinCode);
+        return matcher.matches();
+    }
 
 
     public static void showSnackBar(ViewGroup viewGroup, String message) {
@@ -145,5 +168,29 @@ public class Utilities {
         return android.text.Html.fromHtml(html).toString().trim();
 
     }
+
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        } else {
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
+
+
+    }
+
 
 }
