@@ -1,21 +1,16 @@
 package in.oriange.dailydiary.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
-
-import org.json.JSONObject;
 
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.fragments.BottomSheetMenu_Fragment;
@@ -23,10 +18,9 @@ import in.oriange.dailydiary.fragments.Home_Fragment;
 import in.oriange.dailydiary.fragments.Notification_Fragment;
 import in.oriange.dailydiary.fragments.Shopping_Fragment;
 import in.oriange.dailydiary.fragments.Time_Fragment;
-import in.oriange.dailydiary.utilities.ApplicationConstants;
 import in.oriange.dailydiary.utilities.UserSessionManager;
 
-public class MainDrawer_Activity extends FragmentActivity{
+public class MainDrawer_Activity extends AppCompatActivity {
 
     private Context context;
     private UserSessionManager session;

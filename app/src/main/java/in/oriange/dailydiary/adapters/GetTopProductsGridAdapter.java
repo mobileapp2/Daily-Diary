@@ -16,12 +16,12 @@ import java.util.List;
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.models.TopProductsModel;
 
-public class GetTopProductsListAdapter extends RecyclerView.Adapter<GetTopProductsListAdapter.MyViewHolder> {
+public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProductsGridAdapter.MyViewHolder> {
 
     private List<TopProductsModel> resultArrayList;
     private Context context;
 
-    public GetTopProductsListAdapter(Context context, List<TopProductsModel> resultArrayList) {
+    public GetTopProductsGridAdapter(Context context, List<TopProductsModel> resultArrayList) {
         this.context = context;
         this.resultArrayList = resultArrayList;
 
@@ -30,7 +30,7 @@ public class GetTopProductsListAdapter extends RecyclerView.Adapter<GetTopProduc
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.list_row_topproducts, parent, false);
+        View view = inflater.inflate(R.layout.list_grid_topproducts, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
@@ -79,6 +79,5 @@ public class GetTopProductsListAdapter extends RecyclerView.Adapter<GetTopProduc
 
         }
     }
-
-
 }
+

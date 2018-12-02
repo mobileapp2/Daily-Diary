@@ -32,6 +32,7 @@ import in.oriange.dailydiary.adapters.GetTopProductsListAdapter;
 import in.oriange.dailydiary.models.TopProductsModel;
 import in.oriange.dailydiary.models.TopProductsPojo;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
+import in.oriange.dailydiary.utilities.ConstantData;
 import in.oriange.dailydiary.utilities.UserSessionManager;
 import in.oriange.dailydiary.utilities.Utilities;
 import in.oriange.dailydiary.utilities.WebServiceCalls;
@@ -47,6 +48,8 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     private ArrayList<TopProductsModel> topProductsList;
     private String state, city, locality, pincode;
 
+    private ConstantData constantData;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -59,6 +62,7 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     }
 
     private void init(View rootView) {
+        constantData = ConstantData.getInstance();
         session = new UserSessionManager(context);
         mDemoSlider = rootView.findViewById(R.id.slider);
         edt_location = rootView.findViewById(R.id.edt_location);
@@ -70,20 +74,6 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     }
 
     private void getSessionData() {
-
-
-        String placeStr = "";
-        if (city.isEmpty()) {
-            placeStr = locality + ", " + pincode;
-        } else if (locality.isEmpty()) {
-            placeStr = city + ", " + pincode;
-        } else if (pincode.isEmpty()) {
-            placeStr = city + ", " + locality;
-        } else {
-            placeStr = city + ", " + locality + ", " + pincode;
-        }
-
-        edt_location.setText(placeStr);
 
         try {
             JSONObject pincodeInfo = new JSONObject(session.getPincodeDetails().get(ApplicationConstants.KEY_PINCODE_INFO));
@@ -99,6 +89,18 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     }
 
     private void setDefault() {
+        String placeStr = "";
+        if (city.isEmpty()) {
+            placeStr = locality + ", " + pincode;
+        } else if (locality.isEmpty()) {
+            placeStr = city + ", " + pincode;
+        } else if (pincode.isEmpty()) {
+            placeStr = city + ", " + locality;
+        } else {
+            placeStr = city + ", " + locality + ", " + pincode;
+        }
+
+        edt_location.setText(placeStr);
 
 
         if (Utilities.isInternetAvailable(context)) {
@@ -107,12 +109,19 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
             Utilities.showSnackBar(main_content, "Please Check Internet Connection");
         }
 
-        if (Utilities.isInternetAvailable(context)) {
-            new GetTopProducts().execute();
+        if (constantData.getTopProductsList() == null) {
+            if (Utilities.isInternetAvailable(context)) {
+                new GetTopProducts().execute();
+            } else {
+                Utilities.showSnackBar(main_content, "Please Check Internet Connection");
+            }
         } else {
-            Utilities.showSnackBar(main_content, "Please Check Internet Connection");
+            ArrayList<TopProductsModel> horiProductList = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                horiProductList.add(constantData.getTopProductsList().get(i));
+            }
+            rv_topproducts.setAdapter(new GetTopProductsListAdapter(context, horiProductList));
         }
-
     }
 
     private void setEventHandlers() {
@@ -231,6 +240,7 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
                         ArrayList<TopProductsModel> horiProductList = new ArrayList<>();
 
                         if (topProductsList.size() > 0) {
+                            constantData.setTopProductsList(topProductsList);
                             for (int i = 0; i < 3; i++) {
                                 horiProductList.add(topProductsList.get(i));
                             }

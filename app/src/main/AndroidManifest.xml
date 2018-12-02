@@ -46,7 +46,7 @@
             android:name=".activities.MainDrawer_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
 
 </manifest>

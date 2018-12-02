@@ -2,14 +2,12 @@ package in.oriange.dailydiary.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
 import in.oriange.dailydiary.R;
-import in.oriange.dailydiary.activities.Login_Activity;
 
 public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -47,7 +45,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                startActivity(new Intent(context, Login_Activity.class));
+
                 break;
 
         }

@@ -1,5 +1,9 @@
 package in.oriange.dailydiary.utilities;
 
+import java.util.ArrayList;
+
+import in.oriange.dailydiary.models.TopProductsModel;
+
 public class ConstantData {
 
     public static ConstantData _instance;
@@ -20,5 +24,16 @@ public class ConstantData {
 
     public static void set_instance(ConstantData _instance) {
         ConstantData._instance = _instance;
+    }
+
+
+    private ArrayList<TopProductsModel> topProductsList;
+
+    public ArrayList<TopProductsModel> getTopProductsList() {
+        return topProductsList;
+    }
+
+    public void setTopProductsList(ArrayList<TopProductsModel> topProductsList) {
+        this.topProductsList = topProductsList;
     }
 }
