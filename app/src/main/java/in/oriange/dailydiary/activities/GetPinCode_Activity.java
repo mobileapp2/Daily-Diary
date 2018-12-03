@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -39,6 +40,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static in.oriange.dailydiary.utilities.Utilities.hideSoftKeyboard;
 import static in.oriange.dailydiary.utilities.Utilities.isLocationEnabled;
 import static in.oriange.dailydiary.utilities.Utilities.isPinCode;
+import static in.oriange.dailydiary.utilities.Utilities.provideLocationAccess;
+import static in.oriange.dailydiary.utilities.Utilities.turnOnLocation;
 
 public class GetPinCode_Activity extends Activity implements View.OnClickListener {
 
@@ -76,7 +79,7 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
     }
 
     private void setDefaults() {
-        requestPermission();
+        ActivityCompat.requestPermissions((Activity) context, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
     private void setEventListner() {
@@ -109,40 +112,23 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_pincodefromloc:
-                if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
+                if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED /*&& ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{ACCESS_FINE_LOCATION}, 1);
                     return;
                 } else {
                     if (!isLocationEnabled(context)) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
-                        alertDialog.setTitle("GPS Settings");
-                        alertDialog.setCancelable(false);
-                        alertDialog.setIcon(R.drawable.icon_location);
-                        alertDialog.setMessage("GPS is not enabled. Please turn on the location from settings.");
-                        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivity(intent);
-                            }
-                        });
-                        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        turnOnLocation(context);
                         return;
                     } else {
-
                         locationProviderClient.getLastLocation()
                                 .addOnSuccessListener((Activity) context, new OnSuccessListener<Location>() {
                                     @Override
                                     public void onSuccess(Location location) {
                                         if (location != null) {
                                             getAddressDetails(location.getLatitude(), location.getLongitude());
+                                        } else {
+                                            Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
+                                            cv_locationdetails.setVisibility(View.GONE);
                                         }
                                     }
                                 })
@@ -234,9 +220,21 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
         }
     }
 
-    private void requestPermission() {
-        ActivityCompat.requestPermissions((Activity) context, new String[]{ACCESS_FINE_LOCATION}, 1);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    provideLocationAccess(context);
+                }
+            }
+
+        }
     }
+
 
     @Override
     protected void onDestroy() {

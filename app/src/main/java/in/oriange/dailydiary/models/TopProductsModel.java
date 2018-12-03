@@ -17,6 +17,10 @@ public class TopProductsModel {
 
     private String UoM_Name;
 
+    private String totalProductCount;
+
+    private String totalProductrate;
+
     public String getItemID() {
         return ItemID;
     }
@@ -73,9 +77,19 @@ public class TopProductsModel {
         this.UoM_Name = UoM_Name;
     }
 
-    @Override
-    public String toString() {
-        return "ClassPojo [ItemID = " + ItemID + ", item_image = " + item_image + ", UoM_ID = " + UoM_ID + ", IsActive = " + IsActive + ", UnitPrice = " + UnitPrice + ", Item_Name = " + Item_Name + ", UoM_Name = " + UoM_Name + "]";
+    public String getTotalProductCount() {
+        return totalProductCount;
     }
 
+    public void setTotalProductCount(String totalProductCount) {
+        this.totalProductCount = totalProductCount;
+    }
+
+    public String getTotalProductrate() {
+        return totalProductrate;
+    }
+
+    public void setTotalProductrate(String totalProductrate) {
+        this.totalProductrate = totalProductrate;
+    }
 }
