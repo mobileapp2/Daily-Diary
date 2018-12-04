@@ -1,6 +1,7 @@
 package in.oriange.dailydiary.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import in.oriange.dailydiary.R;
+import in.oriange.dailydiary.activities.SelectDateForPackage_Activity;
 import in.oriange.dailydiary.adapters.GetTopProductsGridAdapter;
 import in.oriange.dailydiary.models.TopProductsModel;
 import in.oriange.dailydiary.models.TopProductsPojo;
@@ -125,8 +127,19 @@ public class Shopping_Fragment extends Fragment {
         });
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+                startActivity(new Intent(context, SelectDateForPackage_Activity.class));
+                break;
+        }
 
 
+        return super.onOptionsItemSelected(item);
     }
 
     public class GetTopProducts extends AsyncTask<String, Void, String> {

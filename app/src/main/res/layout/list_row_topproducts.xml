@@ -23,12 +23,30 @@
             android:textColor="@color/textColorProduct"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imv_productimage"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter" />
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/imv_productimage"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_nopreview"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="No Preview Available"
+                android:textColor="@color/darkGray"
+                android:textSize="15sp"/>
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/tv_productname"

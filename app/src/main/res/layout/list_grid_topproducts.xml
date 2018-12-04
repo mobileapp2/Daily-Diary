@@ -21,12 +21,29 @@
             android:textColor="@color/textColorProduct"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imv_productimage"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter" />
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/imv_productimage"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_nopreview"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:text="No Preview Available"
+                android:textColor="@color/darkGray"
+                android:textSize="25sp"/>
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/tv_productname"

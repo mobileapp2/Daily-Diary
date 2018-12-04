@@ -18,6 +18,7 @@ import java.util.List;
 
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.models.TopProductsModel;
+import in.oriange.dailydiary.utilities.ApplicationConstants;
 
 public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProductsGridAdapter.MyViewHolder> {
 
@@ -48,16 +49,18 @@ public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProduc
         holder.tv_productname.setText(topProductsModel.getItem_Name());
 
         Picasso.with(context)
-                .load("https://mazalatur.com/DailyDiary/Images/Banners/1.jpg")
+                .load(ApplicationConstants.PRODUCTIMAGE + "" + topProductsModel.getItem_image())
                 .into(holder.imv_productimage, new Callback() {
                     @Override
                     public void onSuccess() {
-
+                        holder.tv_nopreview.setVisibility(View.GONE);
+                        holder.imv_productimage.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onError() {
-
+                        holder.tv_nopreview.setVisibility(View.VISIBLE);
+                        holder.imv_productimage.setVisibility(View.GONE);
                     }
                 });
 
@@ -105,7 +108,7 @@ public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProduc
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tv_productprice, tv_productname, tv_totalrate;
+        private TextView tv_productprice, tv_productname, tv_totalrate, tv_nopreview;
         private ImageView imv_productimage, imv_remove, imv_add;
         private EditText edt_totalcount;
         private Button btn_addtocart;
@@ -115,6 +118,7 @@ public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProduc
             tv_productprice = view.findViewById(R.id.tv_productprice);
             tv_productname = view.findViewById(R.id.tv_productname);
             tv_totalrate = view.findViewById(R.id.tv_totalrate);
+            tv_nopreview = view.findViewById(R.id.tv_nopreview);
             imv_productimage = view.findViewById(R.id.imv_productimage);
             imv_remove = view.findViewById(R.id.imv_remove);
             imv_add = view.findViewById(R.id.imv_add);

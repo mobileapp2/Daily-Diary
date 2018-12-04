@@ -17,11 +17,13 @@ public class ApplicationConstants {
 
     public static final String PARENTAPI = "https://mazalatur.com/DailyDiary/Apis/";
     public static final String BANNERIMAGE = "https://mazalatur.com/DailyDiary/Images/Banners/";
+    public static final String PRODUCTIMAGE = "https://mazalatur.com/DailyDiary/Images/Product/";
 
     //LIVE API LINK LIST
 
 //    public static final String PARENTAPI = "";
 //    public static final String BANNERIMAGE = "";
+//    public static final String PRODUCTIMAGE = "";
 
     //API NAMES
 
