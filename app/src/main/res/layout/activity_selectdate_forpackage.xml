@@ -21,11 +21,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.squareup.timessquare.CalendarPickerView
+    <com.squareup.timessquare.CalendarPickerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:scrollbarStyle="outsideOverlay"
+        app:tsquare_dayBackground="@drawable/custom_calendar_bg_selector"
+        app:tsquare_dividerColor="@color/white" />
 
 
     <Button

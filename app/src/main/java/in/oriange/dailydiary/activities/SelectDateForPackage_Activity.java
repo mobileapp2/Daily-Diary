@@ -60,23 +60,10 @@ public class SelectDateForPackage_Activity extends Activity {
         lastYear.add(Calendar.YEAR, -1);
 
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-        calendar.init(lastYear.getTime(), nextYear.getTime()) //
-                .inMode(CalendarPickerView.SelectionMode.SINGLE) //
-                .withSelectedDate(new Date());
-
-//        initButtonListeners(nextYear, lastYear);
 
         calendar.setCustomDayView(new DefaultDayViewAdapter());
-        Calendar today = Calendar.getInstance();
-        ArrayList<Date> dates = new ArrayList<Date>();
-        for (int i = 0; i < 5; i++) {
-            today.add(Calendar.DAY_OF_MONTH, 3);
-            dates.add(today.getTime());
-        }
-        calendar.setDecorators(Collections.<CalendarCellDecorator>emptyList());
         calendar.init(new Date(), nextYear.getTime()) //
-                .inMode(CalendarPickerView.SelectionMode.MULTIPLE) //
-                .withSelectedDates(dates);
+                .inMode(CalendarPickerView.SelectionMode.MULTIPLE);
 
     }
 
@@ -94,7 +81,7 @@ public class SelectDateForPackage_Activity extends Activity {
 
     private void setUpToolBar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);
-        mToolbar.setTitle(Html.fromHtml("<font color='#00000'>Select Date</font>"));
+        mToolbar.setTitle(Html.fromHtml("<font color='#00000'>Select Dates</font>"));
         mToolbar.setNavigationIcon(R.drawable.icon_backarrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

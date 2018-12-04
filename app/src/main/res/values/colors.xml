@@ -10,4 +10,6 @@
     <color name="mediumGray">#9E9E9E</color>
     <color name="darkGray">#616161</color>
     <color name="textColorProduct">#0a3142</color>
+
+    <color name="transparent">#00000000</color>
 </resources>
