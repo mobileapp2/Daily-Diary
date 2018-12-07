@@ -16,9 +16,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import in.oriange.dailydiary.R;
+import in.oriange.dailydiary.activities.Address_Activity;
 import in.oriange.dailydiary.activities.Login_Activity;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
 import in.oriange.dailydiary.utilities.UserSessionManager;
+import in.oriange.dailydiary.utilities.Utilities;
 
 public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -26,13 +28,12 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
     private UserSessionManager session;
     private Button btn_login, btn_register, btn_logout;
     private TextView tv_name, tv_email, tv_mobileno;
-    private LinearLayout ll_loginregister, ll_profileinfo;
+    private LinearLayout ll_loginregister, ll_profileinfo, ll_address;
     private String First_Name, Middle_Name, Last_Name, Mobile_Number, Email_ID;
 
     @Override
     public int getTheme() {
         return R.style.BottomSheetDialogTheme;
-
     }
 
     @Override
@@ -91,6 +92,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
 
         ll_loginregister = view.findViewById(R.id.ll_loginregister);
         ll_profileinfo = view.findViewById(R.id.ll_profileinfo);
+        ll_address = view.findViewById(R.id.ll_address);
 
     }
 
@@ -102,6 +104,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
         btn_login.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         btn_logout.setOnClickListener(this);
+        ll_address.setOnClickListener(this);
     }
 
     @Override
@@ -110,11 +113,22 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
             case R.id.btn_login:
                 startActivity(new Intent(context, Login_Activity.class));
                 break;
+
             case R.id.btn_register:
 
                 break;
+
             case R.id.btn_logout:
                 openLogoutDialog();
+                break;
+
+            case R.id.ll_address:
+                if (session.isUserLoggedIn()) {
+                    startActivity(new Intent(context, Address_Activity.class));
+                } else {
+                    Utilities.showMessageString(context, "Please login first");
+                    startActivity(new Intent(context, Login_Activity.class));
+                }
                 break;
 
         }
