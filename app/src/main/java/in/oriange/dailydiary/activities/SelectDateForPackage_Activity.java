@@ -3,37 +3,24 @@ package in.oriange.dailydiary.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.squareup.timessquare.CalendarCellDecorator;
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.DefaultDayViewAdapter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import in.oriange.dailydiary.R;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 public class SelectDateForPackage_Activity extends Activity {
 
     private Context context;
-    private static final String TAG = "SampleTimesSquareActivi";
     private CalendarPickerView calendar;
     private AlertDialog theDialog;
     private CalendarPickerView dialogView;
@@ -53,17 +40,19 @@ public class SelectDateForPackage_Activity extends Activity {
 
     private void init() {
         context = SelectDateForPackage_Activity.this;
-        final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
 
-        final Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, -1);
+        final Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, 0);
+        startDate.add(Calendar.DAY_OF_MONTH, 2);
 
-        calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
+        final Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);
+        endDate.add(Calendar.DAY_OF_MONTH, 2);
+
+        calendar = findViewById(R.id.calendar_view);
 
         calendar.setCustomDayView(new DefaultDayViewAdapter());
-        calendar.init(new Date(), nextYear.getTime()) //
-                .inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        calendar.init(startDate.getTime(), endDate.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
 
     }
 

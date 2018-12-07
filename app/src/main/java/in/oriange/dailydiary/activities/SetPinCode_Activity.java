@@ -1,20 +1,15 @@
 package in.oriange.dailydiary.activities;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,7 +38,7 @@ import static in.oriange.dailydiary.utilities.Utilities.isPinCode;
 import static in.oriange.dailydiary.utilities.Utilities.provideLocationAccess;
 import static in.oriange.dailydiary.utilities.Utilities.turnOnLocation;
 
-public class GetPinCode_Activity extends Activity implements View.OnClickListener {
+public class SetPinCode_Activity extends Activity implements View.OnClickListener {
 
     private Context context;
     private UserSessionManager session;
@@ -56,7 +51,7 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_pincode);
+        setContentView(R.layout.activity_set_pincode);
 
         init();
         setDefaults();
@@ -64,7 +59,7 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
     }
 
     private void init() {
-        context = GetPinCode_Activity.this;
+        context = SetPinCode_Activity.this;
         session = new UserSessionManager(context);
         locationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         btn_pincodefromloc = findViewById(R.id.btn_pincodefromloc);
@@ -96,7 +91,7 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 6) {
-                    hideSoftKeyboard(GetPinCode_Activity.this);
+                    hideSoftKeyboard(SetPinCode_Activity.this);
                 }
             }
 
@@ -239,6 +234,6 @@ public class GetPinCode_Activity extends Activity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        hideSoftKeyboard(GetPinCode_Activity.this);
+        hideSoftKeyboard(SetPinCode_Activity.this);
     }
 }

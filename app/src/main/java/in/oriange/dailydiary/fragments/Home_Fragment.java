@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import in.oriange.dailydiary.R;
-import in.oriange.dailydiary.activities.GetPinCode_Activity;
+import in.oriange.dailydiary.activities.SetPinCode_Activity;
 import in.oriange.dailydiary.adapters.GetTopProductsListAdapter;
 import in.oriange.dailydiary.models.TopProductsModel;
 import in.oriange.dailydiary.models.TopProductsPojo;
@@ -132,7 +132,7 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edt_location:
-                startActivity(new Intent(context, GetPinCode_Activity.class));
+                startActivity(new Intent(context, SetPinCode_Activity.class));
                 break;
         }
     }

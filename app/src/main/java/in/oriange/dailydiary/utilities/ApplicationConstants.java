@@ -27,6 +27,7 @@ public class ApplicationConstants {
 
     //API NAMES
 
+    public static final String ConsumerData = "ConsumerData.php";
     public static final String banners = "banners.php";
     public static final String getItem = "getItem.php";
 }

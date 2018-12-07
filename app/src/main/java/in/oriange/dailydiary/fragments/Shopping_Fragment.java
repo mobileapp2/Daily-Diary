@@ -68,7 +68,6 @@ public class Shopping_Fragment extends Fragment {
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-
         constantData = ConstantData.getInstance();
         session = new UserSessionManager(context);
         main_content = getActivity().findViewById(R.id.main_content);
@@ -90,6 +89,7 @@ public class Shopping_Fragment extends Fragment {
                 Utilities.showSnackBar(main_content, "Please Check Internet Connection");
             }
         } else {
+            topProductsList = constantData.getTopProductsList();
             rv_topproducts.setAdapter(new GetTopProductsGridAdapter(context, constantData.getTopProductsList()));
         }
 
@@ -107,7 +107,7 @@ public class Shopping_Fragment extends Fragment {
 
         MenuItem mSearch = menu.findItem(R.id.action_search);
 
-        SearchView mSearchView = (SearchView) mSearch.getActionView();
+        final SearchView mSearchView = (SearchView) mSearch.getActionView();
 
         EditText searchEditText = (EditText) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.black));
@@ -117,16 +117,33 @@ public class Shopping_Fragment extends Fragment {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                mSearchView.clearFocus();
+                return filterList(query);
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return true;
+                return filterList(newText);
             }
         });
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public boolean filterList(String filterKeyword) {
+        if (!filterKeyword.equals("")) {
+            ArrayList<TopProductsModel> searchedProductsList = new ArrayList<>();
+            for (TopProductsModel product : topProductsList) {
+                
+                if (product.getItem_Name().toLowerCase().contains(filterKeyword.toLowerCase())) {
+                    searchedProductsList.add(product);
+                }
+            }
+            rv_topproducts.setAdapter(new GetTopProductsGridAdapter(context, searchedProductsList));
+        } else {
+            rv_topproducts.setAdapter(new GetTopProductsGridAdapter(context, topProductsList));
+        }
+        return true;
     }
 
     @Override
@@ -137,8 +154,6 @@ public class Shopping_Fragment extends Fragment {
                 startActivity(new Intent(context, SelectDateForPackage_Activity.class));
                 break;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 

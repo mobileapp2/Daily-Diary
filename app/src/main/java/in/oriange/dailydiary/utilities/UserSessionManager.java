@@ -1,9 +1,15 @@
 package in.oriange.dailydiary.utilities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 
 import java.util.HashMap;
+
+import in.oriange.dailydiary.activities.MainDrawer_Activity;
 
 public class UserSessionManager {
 
@@ -67,18 +73,18 @@ public class UserSessionManager {
         createUserLoginSession(loginInfo);
     }
 
-//    public void logoutUser() {
-//        cleanLoginInfo();
-//        Intent i = new Intent(_context, Login_Activity.class);
-//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        _context.startActivity(i);
-//
-//        if (Build.VERSION.SDK_INT >= 16)
-//            ((Activity) _context).finishAffinity();
-//        else
-//            ActivityCompat.finishAffinity((Activity) _context);
-//    }
+    public void logoutUser() {
+        cleanLoginInfo();
+        Intent i = new Intent(_context, MainDrawer_Activity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        _context.startActivity(i);
+
+        if (Build.VERSION.SDK_INT >= 16)
+            ((Activity) _context).finishAffinity();
+        else
+            ActivityCompat.finishAffinity((Activity) _context);
+    }
 
     public void cleanLoginInfo() {
         editor = pref.edit();

@@ -41,7 +41,7 @@ public class SplashScreen_Activity extends Activity {
                 if (session.isPinCodeSet()) {
                     startActivity(new Intent(context, MainDrawer_Activity.class));
                 } else {
-                    startActivity(new Intent(context, GetPinCode_Activity.class));
+                    startActivity(new Intent(context, SetPinCode_Activity.class));
                 }
                 finish();
             }
