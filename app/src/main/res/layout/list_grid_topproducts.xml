@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="5dp"
-    app:cardUseCompatPadding="true">
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:text="No Preview Available"
                 android:textColor="@color/darkGray"
-                android:textSize="25sp"/>
+                android:textSize="25sp" />
 
         </FrameLayout>
 

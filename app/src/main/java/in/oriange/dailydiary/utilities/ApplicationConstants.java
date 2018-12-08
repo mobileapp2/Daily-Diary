@@ -31,4 +31,5 @@ public class ApplicationConstants {
     public static final String banners = "banners.php";
     public static final String getItem = "getItem.php";
     public static final String getAddress = "getAddress.php";
+    public static final String ConsumerCrud = "ConsumerCrud.php";
 }

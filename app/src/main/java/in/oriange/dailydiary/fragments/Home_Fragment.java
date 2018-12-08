@@ -138,8 +138,7 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     }
 
 
-    private void setSlider(JSONArray bannerJsonArray) {
-
+    private void setSlider(final JSONArray bannerJsonArray) {
         try {
             for (int i = 0; i < bannerJsonArray.length(); i++) {
                 JSONObject jsonObject = bannerJsonArray.getJSONObject(i);
@@ -148,7 +147,6 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
                 textSliderView
                         .description(jsonObject.getString("BannerText"))
                         .image(ApplicationConstants.BANNERIMAGE + "" + jsonObject.getString("BannerImagePath"))
-//                        .setScaleType(BaseSliderView.ScaleType.Fit)
                         .setScaleType(BaseSliderView.ScaleType.CenterInside);
 //                        .setOnSliderClickListener(this);
 
@@ -158,14 +156,13 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
                 mDemoSlider.addSlider(textSliderView);
             }
             mDemoSlider.setCurrentPosition(0, true);
-            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+//            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
             mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
             mDemoSlider.setDuration(5000);
             mDemoSlider.movePrevPosition();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public class GetBanners extends AsyncTask<String, Void, String> {
