@@ -3,11 +3,13 @@ package in.oriange.dailydiary.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -27,6 +29,7 @@ public class Login_Activity extends Activity implements View.OnClickListener {
     private UserSessionManager session;
     private LinearLayout ll_mainlayout;
     private MaterialEditText edt_username, edt_password;
+    private TextView tv_forgotpass, tv_register;
     private Button btn_login;
 
     @Override
@@ -46,6 +49,10 @@ public class Login_Activity extends Activity implements View.OnClickListener {
         ll_mainlayout = findViewById(R.id.ll_mainlayout);
         edt_username = findViewById(R.id.edt_username);
         edt_password = findViewById(R.id.edt_password);
+
+        tv_forgotpass = findViewById(R.id.tv_forgotpass);
+        tv_register = findViewById(R.id.tv_register);
+
         btn_login = findViewById(R.id.btn_login);
 
     }
@@ -56,6 +63,8 @@ public class Login_Activity extends Activity implements View.OnClickListener {
 
     private void setEventHandlers() {
         btn_login.setOnClickListener(this);
+        tv_forgotpass.setOnClickListener(this);
+        tv_register.setOnClickListener(this);
     }
 
     @Override
@@ -72,13 +81,20 @@ public class Login_Activity extends Activity implements View.OnClickListener {
                 }
 
                 if (Utilities.isInternetAvailable(context)) {
-                    new LoginUser().execute(edt_username.getText().toString().trim(),
-                            edt_password.getText().toString().trim());
+                    new LoginUser().execute(edt_username.getText().toString().trim(), edt_password.getText().toString().trim());
                 } else {
                     Utilities.showSnackBar(ll_mainlayout, "Please check your internet connection");
                 }
-
                 break;
+
+            case R.id.tv_forgotpass:
+                break;
+
+            case R.id.tv_register:
+                startActivity(new Intent(context, Register_Activity.class));
+//                finish();
+                break;
+
         }
     }
 
@@ -101,8 +117,8 @@ public class Login_Activity extends Activity implements View.OnClickListener {
             JSONObject obj = new JSONObject();
             try {
                 obj.put("type", "doLogin");
-                obj.put("mobile_number", edt_username.getText().toString());
-                obj.put("password", edt_password.getText().toString());
+                obj.put("mobile_number", params[0]);
+                obj.put("password", params[1]);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.activities.Address_Activity;
 import in.oriange.dailydiary.activities.Login_Activity;
+import in.oriange.dailydiary.activities.Register_Activity;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
 import in.oriange.dailydiary.utilities.UserSessionManager;
 import in.oriange.dailydiary.utilities.Utilities;
@@ -115,7 +116,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
                 break;
 
             case R.id.btn_register:
-
+                startActivity(new Intent(context, Register_Activity.class));
                 break;
 
             case R.id.btn_logout:
