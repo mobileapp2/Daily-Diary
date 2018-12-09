@@ -11,5 +11,8 @@
     <color name="darkGray">#616161</color>
     <color name="textColorProduct">#0a3142</color>
 
+    <color name="colorNotificationCountBg">#f25656</color>
+    <color name="colorNotificationCountTxt">#ffffff</color>
+
     <color name="transparent">#00000000</color>
 </resources>

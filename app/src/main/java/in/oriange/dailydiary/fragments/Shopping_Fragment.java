@@ -2,6 +2,8 @@ package in.oriange.dailydiary.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,23 +19,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.activities.SelectDateForPackage_Activity;
-import in.oriange.dailydiary.adapters.GetTopProductsGridAdapter;
+import in.oriange.dailydiary.models.PackageItemsModel;
 import in.oriange.dailydiary.models.TopProductsModel;
 import in.oriange.dailydiary.models.TopProductsPojo;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
 import in.oriange.dailydiary.utilities.ConstantData;
+import in.oriange.dailydiary.utilities.CountDrawable;
 import in.oriange.dailydiary.utilities.UserSessionManager;
 import in.oriange.dailydiary.utilities.Utilities;
 import in.oriange.dailydiary.utilities.WebServiceCalls;
@@ -46,6 +55,10 @@ public class Shopping_Fragment extends Fragment {
     private LinearLayout main_content;
     private ArrayList<TopProductsModel> topProductsList;
     private ConstantData constantData;
+
+    private MenuItem menuItem;
+    private LayerDrawable icon_cart;
+    private ArrayList<PackageItemsModel> packageItemsList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +87,7 @@ public class Shopping_Fragment extends Fragment {
         rv_topproducts = rootView.findViewById(R.id.rv_topproducts);
         rv_topproducts.setLayoutManager(new GridLayoutManager(context, 2));
         topProductsList = new ArrayList<>();
+        packageItemsList = new ArrayList<>();
     }
 
     private void getSessionData() {
@@ -81,6 +95,12 @@ public class Shopping_Fragment extends Fragment {
     }
 
     private void setDefault() {
+
+        packageItemsList = constantData.getPackageItemsList();
+
+        if (packageItemsList == null) {
+            packageItemsList = new ArrayList<>();
+        }
 
         if (constantData.getTopProductsList() == null) {
             if (Utilities.isInternetAvailable(context)) {
@@ -101,8 +121,6 @@ public class Shopping_Fragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-
         inflater.inflate(R.menu.shopping_fragment_menus, menu);
 
         MenuItem mSearch = menu.findItem(R.id.action_search);
@@ -130,11 +148,52 @@ public class Shopping_Fragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+
+                if (packageItemsList.size() > 0) {
+                    startActivity(new Intent(context, SelectDateForPackage_Activity.class));
+                } else {
+                    Utilities.showMessageString(context, "Please add items to the cart to proceed further");
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if (menu != null) {
+            menuItem = menu.findItem(R.id.action_cart);
+            icon_cart = (LayerDrawable) menuItem.getIcon();
+
+            setCount(context, String.valueOf(packageItemsList.size()), icon_cart);
+
+        }
+    }
+
+    public void setCount(Context context, String count, LayerDrawable icon_cart) {
+        CountDrawable badge;
+        Drawable reuse = icon_cart.findDrawableByLayerId(R.id.ic_group_count);
+        if (reuse instanceof CountDrawable) {
+            badge = (CountDrawable) reuse;
+        } else {
+            badge = new CountDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon_cart.mutate();
+        icon_cart.setDrawableByLayerId(R.id.ic_group_count, badge);
+    }
+
     public boolean filterList(String filterKeyword) {
         if (!filterKeyword.equals("")) {
             ArrayList<TopProductsModel> searchedProductsList = new ArrayList<>();
             for (TopProductsModel product : topProductsList) {
-                
+
                 if (product.getItem_Name().toLowerCase().contains(filterKeyword.toLowerCase())) {
                     searchedProductsList.add(product);
                 }
@@ -144,17 +203,6 @@ public class Shopping_Fragment extends Fragment {
             rv_topproducts.setAdapter(new GetTopProductsGridAdapter(context, topProductsList));
         }
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_cart:
-                startActivity(new Intent(context, SelectDateForPackage_Activity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public class GetTopProducts extends AsyncTask<String, Void, String> {
@@ -198,5 +246,145 @@ public class Shopping_Fragment extends Fragment {
             }
         }
     }
+
+    public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProductsGridAdapter.MyViewHolder> {
+
+        private List<TopProductsModel> resultArrayList;
+        private Context context;
+
+        public GetTopProductsGridAdapter(Context context, List<TopProductsModel> resultArrayList) {
+            this.context = context;
+            this.resultArrayList = resultArrayList;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.list_grid_topproducts, parent, false);
+            MyViewHolder myViewHolder = new MyViewHolder(view);
+            return myViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, int pos) {
+            int position = holder.getAdapterPosition();
+
+            final int[] totalCount = {0};
+            final TopProductsModel topProductsModel = resultArrayList.get(position);
+
+            holder.tv_productprice.setText("₹ " + topProductsModel.getUnitPrice());
+            holder.tv_productname.setText(topProductsModel.getItem_Name());
+            holder.tv_unit.setText(topProductsModel.getUoM_Name());
+            holder.edt_totalcount.setText("" + totalCount[0]);
+            holder.tv_totalrate.setText("₹ " + 0);
+
+            Picasso.with(context)
+                    .load(ApplicationConstants.PRODUCTIMAGE + "" + topProductsModel.getItem_image())
+                    .into(holder.imv_productimage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.tv_nopreview.setVisibility(View.GONE);
+                            holder.imv_productimage.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            holder.tv_nopreview.setVisibility(View.VISIBLE);
+                            holder.imv_productimage.setVisibility(View.GONE);
+                        }
+                    });
+
+            holder.imv_remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (totalCount[0] > 0) {
+
+                        totalCount[0] = totalCount[0] - 1;
+                        holder.edt_totalcount.setText("" + totalCount[0]);
+                        holder.tv_totalrate.setText("₹ " + Integer.parseInt(topProductsModel.getUnitPrice()) * totalCount[0]);
+
+                    }
+
+                }
+            });
+
+            holder.imv_add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    totalCount[0] = totalCount[0] + 1;
+                    holder.edt_totalcount.setText("" + totalCount[0]);
+                    holder.tv_totalrate.setText("₹ " + Integer.parseInt(topProductsModel.getUnitPrice()) * totalCount[0]);
+
+                }
+            });
+
+            holder.btn_addtocart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.tv_totalrate.getText().toString().trim().equals("₹ 0")) {
+                        return;
+                    }
+
+                    for (int i = 0; i < packageItemsList.size(); i++) {
+                        if (topProductsModel.getItemID().equals(packageItemsList.get(i).getItemID())) {
+                            packageItemsList.get(i).setTotalProductCount(holder.edt_totalcount.getText().toString().trim());
+                            packageItemsList.get(i).setTotalProductrate(holder.tv_totalrate.getText().toString().trim());
+                            setCount(context, String.valueOf(packageItemsList.size()), icon_cart);
+                            return;
+                        }
+                    }
+
+
+                    packageItemsList.add(new PackageItemsModel(
+                            topProductsModel.getItemID(),
+                            topProductsModel.getItem_image(),
+                            topProductsModel.getUoM_ID(),
+                            topProductsModel.getIsActive(),
+                            topProductsModel.getUnitPrice(),
+                            topProductsModel.getItem_Name(),
+                            topProductsModel.getUoM_Name(),
+                            holder.edt_totalcount.getText().toString().trim(),
+                            holder.tv_totalrate.getText().toString().trim()
+                    ));
+
+                    constantData.setPackageItemsList(packageItemsList);
+                    setCount(context, String.valueOf(packageItemsList.size()), icon_cart);
+
+
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return resultArrayList.size();
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+
+            private TextView tv_productprice, tv_productname, tv_totalrate, tv_nopreview, tv_unit;
+            private ImageView imv_productimage, imv_remove, imv_add;
+            private EditText edt_totalcount;
+            private Button btn_addtocart;
+
+            private MyViewHolder(View view) {
+                super(view);
+                tv_productprice = view.findViewById(R.id.tv_productprice);
+                tv_productname = view.findViewById(R.id.tv_productname);
+                tv_totalrate = view.findViewById(R.id.tv_totalrate);
+                tv_nopreview = view.findViewById(R.id.tv_nopreview);
+                tv_unit = view.findViewById(R.id.tv_unit);
+                imv_productimage = view.findViewById(R.id.imv_productimage);
+                imv_remove = view.findViewById(R.id.imv_remove);
+                imv_add = view.findViewById(R.id.imv_add);
+                edt_totalcount = view.findViewById(R.id.edt_totalcount);
+                btn_addtocart = view.findViewById(R.id.btn_addtocart);
+
+            }
+        }
+    }
+
 
 }

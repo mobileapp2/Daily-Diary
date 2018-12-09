@@ -72,13 +72,13 @@
                 android:id="@+id/edt_totalcount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
+                android:layout_weight="0.3"
                 android:clickable="false"
                 android:focusable="false"
                 android:gravity="center"
                 android:longClickable="false"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
 
             <ImageView
@@ -88,6 +88,17 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.2"
                 android:src="@drawable/icon_add" />
+
+            <TextView
+                android:id="@+id/tv_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:textColor="@color/textColorProduct"
+                android:textSize="14sp" />
+
 
         </LinearLayout>
 

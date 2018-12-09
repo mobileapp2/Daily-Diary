@@ -1,8 +1,8 @@
 package in.oriange.dailydiary.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -12,19 +12,20 @@ import android.widget.Button;
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.DefaultDayViewAdapter;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
 import in.oriange.dailydiary.R;
+import in.oriange.dailydiary.utilities.Utilities;
 
-public class SelectDateForPackage_Activity extends Activity {
+public class SelectDateForPackage_Activity extends Activity implements View.OnClickListener {
 
     private Context context;
     private CalendarPickerView calendar;
-    private AlertDialog theDialog;
-    private CalendarPickerView dialogView;
-    private final Set<Button> modeButtons = new LinkedHashSet<Button>();
+    private Button btn_next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +42,8 @@ public class SelectDateForPackage_Activity extends Activity {
     private void init() {
         context = SelectDateForPackage_Activity.this;
 
-        final Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, 0);
-        startDate.add(Calendar.DAY_OF_MONTH, 2);
-
-        final Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 1);
-        endDate.add(Calendar.DAY_OF_MONTH, 2);
-
         calendar = findViewById(R.id.calendar_view);
-
-        calendar.setCustomDayView(new DefaultDayViewAdapter());
-        calendar.init(startDate.getTime(), endDate.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        btn_next = findViewById(R.id.btn_next);
 
     }
 
@@ -62,9 +53,35 @@ public class SelectDateForPackage_Activity extends Activity {
 
     private void setDefault() {
 
+        final Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, 0);
+        startDate.add(Calendar.DAY_OF_MONTH, 2);
+
+        final Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);
+        endDate.add(Calendar.DAY_OF_MONTH, 2);
+
+        calendar.setCustomDayView(new DefaultDayViewAdapter());
+        calendar.init(startDate.getTime(), endDate.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
     }
 
     private void setEventHandlers() {
+        btn_next.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_next:
+                List<Date> selectedDates = calendar.getSelectedDates();
+
+                if (selectedDates.size() != 0) {
+                    startActivity(new Intent(context, SelectAddressForPackage_Activity.class).putExtra("selectedDates", (Serializable) selectedDates));
+                } else {
+                    Utilities.showMessageString(context, "Please select date");
+                }
+                break;
+        }
 
     }
 
@@ -79,4 +96,5 @@ public class SelectDateForPackage_Activity extends Activity {
             }
         });
     }
+
 }
