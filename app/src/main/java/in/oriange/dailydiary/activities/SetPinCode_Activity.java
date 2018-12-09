@@ -1,5 +1,6 @@
 package in.oriange.dailydiary.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +19,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -38,15 +42,21 @@ import static in.oriange.dailydiary.utilities.Utilities.isPinCode;
 import static in.oriange.dailydiary.utilities.Utilities.provideLocationAccess;
 import static in.oriange.dailydiary.utilities.Utilities.turnOnLocation;
 
-public class SetPinCode_Activity extends Activity implements View.OnClickListener {
+public class SetPinCode_Activity extends Activity implements View.OnClickListener, LocationListener {
 
     private Context context;
     private UserSessionManager session;
     private FusedLocationProviderClient locationProviderClient;
+    private ScrollView ll_mainlayout;
     private Button btn_pincodefromloc, btn_search, btn_select;
     private EditText edt_piccode;
     private CardView cv_locationdetails;
     private TextView tv_state, tv_city, tv_locality, tv_pincode;
+
+
+    private static final float MIN_DISTANCE_FOR_UPDATE = 10;
+    private static final long MIN_TIME_FOR_UPDATE = 1000 * 60 * 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,8 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
         context = SetPinCode_Activity.this;
         session = new UserSessionManager(context);
         locationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+
+        ll_mainlayout = findViewById(R.id.ll_mainlayout);
         btn_pincodefromloc = findViewById(R.id.btn_pincodefromloc);
         btn_search = findViewById(R.id.btn_search);
         btn_select = findViewById(R.id.btn_select);
@@ -107,6 +119,13 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_pincodefromloc:
+
+                if (!Utilities.isInternetAvailable(context)) {
+                    Utilities.showSnackBar(ll_mainlayout, "Please Check Internet Connection");
+                    return;
+                }
+
+
                 if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED /*&& ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
                     ActivityCompat.requestPermissions((Activity) context, new String[]{ACCESS_FINE_LOCATION}, 1);
                     return;
@@ -122,26 +141,40 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
                                         if (location != null) {
                                             getAddressDetails(location.getLatitude(), location.getLongitude());
                                         } else {
-                                            Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
-                                            cv_locationdetails.setVisibility(View.GONE);
+                                            Location nwLocation = getLocation();
+                                            if (nwLocation != null) {
+                                                getAddressDetails(nwLocation.getLatitude(), nwLocation.getLongitude());
+                                            } else {
+                                                Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
+                                                cv_locationdetails.setVisibility(View.GONE);
+                                            }
                                         }
                                     }
                                 })
                                 .addOnFailureListener((Activity) context, new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
-                                        cv_locationdetails.setVisibility(View.GONE);
-
+                                        Location nwLocation = getLocation();
+                                        if (nwLocation != null) {
+                                            getAddressDetails(nwLocation.getLatitude(), nwLocation.getLongitude());
+                                        } else {
+                                            Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
+                                            cv_locationdetails.setVisibility(View.GONE);
+                                        }
                                     }
                                 });
 
                     }
                 }
-
-
                 break;
+
+
             case R.id.btn_search:
+                if (!Utilities.isInternetAvailable(context)) {
+                    Utilities.showSnackBar(ll_mainlayout, "Please Check Internet Connection");
+                    return;
+                }
+
                 if (!isPinCode(edt_piccode)) {
                     return;
                 }
@@ -235,5 +268,36 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
     protected void onDestroy() {
         super.onDestroy();
         hideSoftKeyboard(SetPinCode_Activity.this);
+    }
+
+    @SuppressLint("MissingPermission")
+    public Location getLocation() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DISTANCE_FOR_UPDATE, this);
+        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            return location;
+        }
+        return null;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }
