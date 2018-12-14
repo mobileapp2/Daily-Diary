@@ -28,7 +28,10 @@ import java.util.ArrayList;
 
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.activities.SetPinCode_Activity;
+import in.oriange.dailydiary.adapters.GetTopOffersListAdapter;
 import in.oriange.dailydiary.adapters.GetTopProductsListAdapter;
+import in.oriange.dailydiary.models.TopOffersModel;
+import in.oriange.dailydiary.models.TopOffersPojo;
 import in.oriange.dailydiary.models.TopProductsModel;
 import in.oriange.dailydiary.models.TopProductsPojo;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
@@ -44,8 +47,9 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
     private SliderLayout mDemoSlider;
     private LinearLayout main_content;
     private EditText edt_location;
-    private RecyclerView rv_topproducts;
+    private RecyclerView rv_topproducts, rv_topoffers;
     private ArrayList<TopProductsModel> topProductsList;
+    private ArrayList<TopOffersModel> topOffresList;
     private String state, city, locality, pincode;
 
     private ConstantData constantData;
@@ -69,8 +73,11 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
         main_content = getActivity().findViewById(R.id.main_content);
         rv_topproducts = rootView.findViewById(R.id.rv_topproducts);
         rv_topproducts.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        rv_topoffers = rootView.findViewById(R.id.rv_topoffers);
+        rv_topoffers.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         topProductsList = new ArrayList<>();
+        topOffresList = new ArrayList<>();
     }
 
     private void getSessionData() {
@@ -122,6 +129,17 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
             }
             rv_topproducts.setAdapter(new GetTopProductsListAdapter(context, horiProductList));
         }
+
+
+        if (constantData.getTopOffresList() == null) {
+            if (Utilities.isInternetAvailable(context)) {
+                new GetTopOffers().execute();
+            } else {
+                Utilities.showSnackBar(main_content, "Please Check Internet Connection");
+            }
+        } else {
+            rv_topoffers.setAdapter(new GetTopOffersListAdapter(context, constantData.getTopOffresList()));
+        }
     }
 
     private void setEventHandlers() {
@@ -136,7 +154,6 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
                 break;
         }
     }
-
 
     private void setSlider(final JSONArray bannerJsonArray) {
         try {
@@ -242,6 +259,47 @@ public class Home_Fragment extends Fragment implements View.OnClickListener /*im
                                 horiProductList.add(topProductsList.get(i));
                             }
                             rv_topproducts.setAdapter(new GetTopProductsListAdapter(context, horiProductList));
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class GetTopOffers extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String res = "[]";
+            JsonObject obj = new JsonObject();
+            obj.addProperty("type", "getOffers");
+            res = WebServiceCalls.JSONAPICall(ApplicationConstants.offers, obj.toString());
+            return res.trim();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            String type = "", message = "";
+            try {
+                if (!result.equals("")) {
+                    topOffresList = new ArrayList<>();
+                    TopOffersPojo empPojo = new Gson().fromJson(result, TopOffersPojo.class);
+                    type = empPojo.getType();
+                    message = empPojo.getMessage();
+                    if (type.equalsIgnoreCase("success")) {
+                        topOffresList = empPojo.getData();
+
+                        if (topOffresList.size() > 0) {
+                            constantData.setTopOffresList(topOffresList);
+                            rv_topoffers.setAdapter(new GetTopOffersListAdapter(context, topOffresList));
                         }
                     }
                 }

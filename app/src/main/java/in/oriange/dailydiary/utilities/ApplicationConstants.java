@@ -18,6 +18,7 @@ public class ApplicationConstants {
     public static final String PARENTAPI = "https://mazalatur.com/DailyDiary/Apis/";
     public static final String BANNERIMAGE = "https://mazalatur.com/DailyDiary/Images/Banners/";
     public static final String PRODUCTIMAGE = "https://mazalatur.com/DailyDiary/Images/Product/";
+    public static final String OFFERIMAGE = "https://mazalatur.com/DailyDiary/Images/Offer/";
 
     //LIVE API LINK LIST
 
@@ -30,6 +31,7 @@ public class ApplicationConstants {
     public static final String ConsumerData = "ConsumerData.php";
     public static final String banners = "banners.php";
     public static final String getItem = "getItem.php";
+    public static final String offers = "offers.php";
     public static final String getAddress = "getAddress.php";
     public static final String ConsumerCrud = "ConsumerCrud.php";
 }

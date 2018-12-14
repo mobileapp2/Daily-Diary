@@ -3,6 +3,7 @@ package in.oriange.dailydiary.utilities;
 import java.util.ArrayList;
 
 import in.oriange.dailydiary.models.PackageItemsModel;
+import in.oriange.dailydiary.models.TopOffersModel;
 import in.oriange.dailydiary.models.TopProductsModel;
 
 public class ConstantData {
@@ -29,8 +30,9 @@ public class ConstantData {
 
 
     private ArrayList<TopProductsModel> topProductsList;
-
+    private ArrayList<TopOffersModel> topOffresList;
     private ArrayList<PackageItemsModel> packageItemsList;
+
 
     public ArrayList<TopProductsModel> getTopProductsList() {
         return topProductsList;
@@ -38,6 +40,14 @@ public class ConstantData {
 
     public void setTopProductsList(ArrayList<TopProductsModel> topProductsList) {
         this.topProductsList = topProductsList;
+    }
+
+    public ArrayList<TopOffersModel> getTopOffresList() {
+        return topOffresList;
+    }
+
+    public void setTopOffresList(ArrayList<TopOffersModel> topOffresList) {
+        this.topOffresList = topOffresList;
     }
 
     public ArrayList<PackageItemsModel> getPackageItemsList() {
