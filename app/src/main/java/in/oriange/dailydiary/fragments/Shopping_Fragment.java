@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.oriange.dailydiary.R;
+import in.oriange.dailydiary.activities.Login_Activity;
 import in.oriange.dailydiary.activities.SelectDateForPackage_Activity;
 import in.oriange.dailydiary.models.PackageItemsModel;
 import in.oriange.dailydiary.models.TopProductsModel;
@@ -153,11 +154,15 @@ public class Shopping_Fragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.action_cart:
-
-                if (packageItemsList.size() > 0) {
-                    startActivity(new Intent(context, SelectDateForPackage_Activity.class));
+                if (session.isUserLoggedIn()) {
+                    if (packageItemsList.size() > 0) {
+                        startActivity(new Intent(context, SelectDateForPackage_Activity.class));
+                    } else {
+                        Utilities.showMessageString(context, "Please add items to the cart to proceed further");
+                    }
                 } else {
-                    Utilities.showMessageString(context, "Please add items to the cart to proceed further");
+                    Utilities.showMessageString(context, "Please login first");
+                    startActivity(new Intent(context, Login_Activity.class));
                 }
                 break;
         }
@@ -366,7 +371,7 @@ public class Shopping_Fragment extends Fragment {
 
             private TextView tv_productprice, tv_productname, tv_totalrate, tv_nopreview, tv_unit;
             private ImageView imv_productimage, imv_remove, imv_add;
-            private EditText edt_totalcount;
+            private TextView edt_totalcount;
             private Button btn_addtocart;
 
             private MyViewHolder(View view) {

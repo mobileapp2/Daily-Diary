@@ -110,7 +110,7 @@ public class GetTopProductsGridAdapter extends RecyclerView.Adapter<GetTopProduc
 
         private TextView tv_productprice, tv_productname, tv_totalrate, tv_nopreview;
         private ImageView imv_productimage, imv_remove, imv_add;
-        private EditText edt_totalcount;
+        private TextView edt_totalcount;
         private Button btn_addtocart;
 
         private MyViewHolder(View view) {

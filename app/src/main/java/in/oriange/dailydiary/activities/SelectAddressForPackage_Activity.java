@@ -120,7 +120,7 @@ public class SelectAddressForPackage_Activity extends Activity {
         rv_address.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(context, ProceedToCheckout_Activity.class);
+                Intent intent = new Intent(context, ReviewMyCartItems_Activity.class);
                 intent.putExtra("selectedDates", (Serializable) selectedDates);
                 intent.putExtra("selectedAddress", addressList.get(position));
                 startActivity(intent);

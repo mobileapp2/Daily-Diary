@@ -3,8 +3,9 @@ package in.oriange.dailydiary.activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -12,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,14 +35,14 @@ import in.oriange.dailydiary.utilities.ApplicationConstants;
 import in.oriange.dailydiary.utilities.ConstantData;
 import in.oriange.dailydiary.utilities.UserSessionManager;
 
-public class ProceedToCheckout_Activity extends Activity {
+public class ReviewMyCartItems_Activity extends Activity {
 
     private Context context;
     private UserSessionManager session;
     private ConstantData constantData;
     private LinearLayout ll_mainlayout;
     private RecyclerView rv_itemlist;
-    private TextView tv_addressandfullname, tv_addressdetails, tv_emailandmobileno, tv_totalrate;
+    private TextView tv_addressandfullname, tv_addressdetails, tv_emailandmobileno;
     private Button btn_next;
 
     private String ConsumerID;
@@ -54,7 +55,7 @@ public class ProceedToCheckout_Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proceed_tocheckout);
+        setContentView(R.layout.activity_reviewmy_cartitems);
 
         init();
         getSessionData();
@@ -64,18 +65,17 @@ public class ProceedToCheckout_Activity extends Activity {
     }
 
     private void init() {
-        context = ProceedToCheckout_Activity.this;
+        context = ReviewMyCartItems_Activity.this;
         session = new UserSessionManager(context);
         constantData = ConstantData.getInstance();
 
         rv_itemlist = findViewById(R.id.rv_itemlist);
-        rv_itemlist.setLayoutManager(new GridLayoutManager(context, 2));
+        rv_itemlist.setLayoutManager(new LinearLayoutManager(context));
 
         ll_mainlayout = findViewById(R.id.ll_mainlayout);
         tv_addressandfullname = findViewById(R.id.tv_addressandfullname);
         tv_addressdetails = findViewById(R.id.tv_addressdetails);
         tv_emailandmobileno = findViewById(R.id.tv_emailandmobileno);
-        tv_totalrate = findViewById(R.id.tv_totalrate);
         btn_next = findViewById(R.id.btn_next);
     }
 
@@ -88,7 +88,6 @@ public class ProceedToCheckout_Activity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -103,9 +102,6 @@ public class ProceedToCheckout_Activity extends Activity {
             totalFinalRate = totalFinalRate + Integer.parseInt(rate);
         }
 
-        tv_totalrate.setText("Total Amount ₹ " + totalFinalRate);
-
-
         tv_addressandfullname.setText(selectedAddress.getFull_name() + ", " + selectedAddress.getAddress_name());
 
         tv_addressdetails.setText(selectedAddress.getAddressline_one() + ", " + selectedAddress.getAddressline_two() + ", " +
@@ -118,23 +114,23 @@ public class ProceedToCheckout_Activity extends Activity {
     }
 
     private void setEventHandler() {
-
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CreatePackage_Activity.class);
+                intent.putExtra("selectedDates", (Serializable) selectedDates);
+                intent.putExtra("selectedAddress", selectedAddress);
+                startActivity(intent);
+            }
+        });
     }
 
     public class SelectedItemsAdapter extends RecyclerView.Adapter<SelectedItemsAdapter.MyViewHolder> {
 
-//        private List<PackageItemsModel> resultArrayList;
-//        private Context context;
-
-//        public SelectedItemsAdapter(Context context, List<PackageItemsModel> resultArrayList) {
-//            this.context = context;
-//            this.resultArrayList = resultArrayList;
-//        }
-
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.list_grid_topproducts, parent, false);
+            View view = inflater.inflate(R.layout.list_row_mycart, parent, false);
             MyViewHolder myViewHolder = new MyViewHolder(view);
             return myViewHolder;
         }
@@ -146,10 +142,10 @@ public class ProceedToCheckout_Activity extends Activity {
             final PackageItemsModel selectedItem = selectedItemsList.get(position);
             final int[] totalCount = {Integer.parseInt(selectedItem.getTotalProductCount())};
 
-            holder.tv_productprice.setText("₹ " + selectedItem.getUnitPrice());
             holder.tv_productname.setText(selectedItem.getItem_Name());
-            holder.tv_unit.setText(selectedItem.getUoM_Name());
+            holder.tv_productprice.setText("₹ " + selectedItem.getUnitPrice());
             holder.edt_totalcount.setText("" + totalCount[0]);
+            holder.tv_unit.setText("Qty/ "+selectedItem.getUoM_Name());
             holder.tv_totalrate.setText(selectedItem.getTotalProductrate());
 
             Picasso.with(context)
@@ -168,29 +164,26 @@ public class ProceedToCheckout_Activity extends Activity {
                         }
                     });
 
-//            holder.imv_remove.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (totalCount[0] > 0) {
-//                        totalCount[0] = totalCount[0] - 1;
-//                        holder.edt_totalcount.setText("" + totalCount[0]);
-//                        holder.tv_totalrate.setText("₹ " + Integer.parseInt(selectedItem.getUnitPrice()) * totalCount[0]);
-//                    }
-//
-//
-//                }
-//            });
-//
-//            holder.imv_add.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    totalCount[0] = totalCount[0] + 1;
-//                    holder.edt_totalcount.setText("" + totalCount[0]);
-//                    holder.tv_totalrate.setText("₹ " + Integer.parseInt(selectedItem.getUnitPrice()) * totalCount[0]);
-//                }
-//            });
+            holder.imv_remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            holder.btn_addtocart.setVisibility(View.GONE);
+                }
+            });
+
+            holder.imv_add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            holder.imv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         }
 
@@ -201,28 +194,25 @@ public class ProceedToCheckout_Activity extends Activity {
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_productprice, tv_productname, tv_totalrate, tv_nopreview, tv_unit;
-            private ImageView imv_productimage, imv_remove, imv_add;
-            private EditText edt_totalcount;
-            private Button btn_addtocart;
+            private ImageView imv_productimage, imv_remove, imv_add, imv_delete;
+            private TextView tv_nopreview, tv_productname, tv_productprice, edt_totalcount, tv_unit, tv_totalrate;
 
             private MyViewHolder(View view) {
                 super(view);
-                tv_productprice = view.findViewById(R.id.tv_productprice);
-                tv_productname = view.findViewById(R.id.tv_productname);
-                tv_totalrate = view.findViewById(R.id.tv_totalrate);
-                tv_nopreview = view.findViewById(R.id.tv_nopreview);
-                tv_unit = view.findViewById(R.id.tv_unit);
                 imv_productimage = view.findViewById(R.id.imv_productimage);
                 imv_remove = view.findViewById(R.id.imv_remove);
                 imv_add = view.findViewById(R.id.imv_add);
+                imv_delete = view.findViewById(R.id.imv_delete);
+                tv_nopreview = view.findViewById(R.id.tv_nopreview);
+                tv_productname = view.findViewById(R.id.tv_productname);
+                tv_productprice = view.findViewById(R.id.tv_productprice);
                 edt_totalcount = view.findViewById(R.id.edt_totalcount);
-                btn_addtocart = view.findViewById(R.id.btn_addtocart);
+                tv_unit = view.findViewById(R.id.tv_unit);
+                tv_totalrate = view.findViewById(R.id.tv_totalrate);
 
             }
         }
     }
-
 
     private void setUpToolBar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);

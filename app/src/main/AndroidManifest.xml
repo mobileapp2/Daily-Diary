@@ -74,10 +74,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.ProceedToCheckout_Activity"
+            android:name=".activities.ReviewMyCartItems_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activities.CreatePackage_Activity"></activity>
     </application>
 
 </manifest>
