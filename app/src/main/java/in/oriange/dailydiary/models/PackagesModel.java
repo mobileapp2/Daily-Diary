@@ -186,7 +186,7 @@ public class PackagesModel implements Serializable {
     }
 
 
-    public class Items {
+    public class Items implements Serializable {
         private String item_image;
 
         private String Quantity;
@@ -248,7 +248,7 @@ public class PackagesModel implements Serializable {
         }
     }
 
-    public class DeliveryDates {
+    public class DeliveryDates implements Serializable {
         private String Delivery_Date;
 
         public String getDelivery_Date() {
@@ -261,7 +261,7 @@ public class PackagesModel implements Serializable {
 
     }
 
-    public class Feedback {
+    public class Feedback implements Serializable {
         private String FeedbackID;
 
         private String StarRating;

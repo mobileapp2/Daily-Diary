@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -36,17 +37,17 @@ import in.oriange.dailydiary.utilities.UserSessionManager;
 import in.oriange.dailydiary.utilities.Utilities;
 import in.oriange.dailydiary.utilities.WebServiceCalls;
 
-public class ViewPackageDetails_Activity extends Activity {
+public class ViewPackageDetails_Activity extends Activity implements View.OnClickListener {
 
     private Context context;
     private UserSessionManager session;
     private ProgressDialog pd;
     private LinearLayout ll_mainlayout;
     private RecyclerView rv_itemlist;
-    private TextView tv_addressdetails, tv_addressandfullname;
+    private TextView tv_addressdetails, tv_addressandfullname, tv_status;
     private ImageView imv_delete;
 
-    private Button btn_next;
+    private Button btn_next, btn_delivarydates;
     private String ConsumerID;
     private PackagesModel packageDetails;
     private ArrayList<PackagesModel.Items> packageItemsList;
@@ -72,6 +73,10 @@ public class ViewPackageDetails_Activity extends Activity {
         ll_mainlayout = findViewById(R.id.ll_mainlayout);
         tv_addressandfullname = findViewById(R.id.tv_addressandfullname);
         tv_addressdetails = findViewById(R.id.tv_addressdetails);
+        tv_status = findViewById(R.id.tv_status);
+
+        btn_next = findViewById(R.id.btn_next);
+        btn_delivarydates = findViewById(R.id.btn_delivarydates);
 
         rv_itemlist = findViewById(R.id.rv_itemlist);
         rv_itemlist.setLayoutManager(new LinearLayoutManager(context));
@@ -103,6 +108,8 @@ public class ViewPackageDetails_Activity extends Activity {
         tv_addressdetails.setText(packageDetails.getAddressline_one() + ", " + packageDetails.getAddressline_two() + ", " +
                 packageDetails.getState_name() + ", " + packageDetails.getCity_name() + ", " + packageDetails.getPincode());
 
+        tv_status.setText(packageDetails.getStatus_name());
+
         packageItemsList = packageDetails.getItems();
 
         rv_itemlist.setAdapter(new SelectedItemsAdapter());
@@ -110,9 +117,21 @@ public class ViewPackageDetails_Activity extends Activity {
     }
 
     private void setEventHandler() {
-        imv_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_next.setOnClickListener(this);
+        btn_delivarydates.setOnClickListener(this);
+        imv_delete.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_next:
+                break;
+            case R.id.btn_delivarydates:
+                startActivity(new Intent(context, ViewDelivaryDates_Activity.class)
+                        .putExtra("delivaryDates", packageDetails.getDeliveryDates()));
+                break;
+            case R.id.imv_delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
                 builder.setMessage("Are you sure you want to delete this package?");
                 builder.setIcon(R.drawable.icon_alertred);
@@ -135,8 +154,8 @@ public class ViewPackageDetails_Activity extends Activity {
                 });
                 AlertDialog alertD = builder.create();
                 alertD.show();
-            }
-        });
+                break;
+        }
     }
 
     public class SelectedItemsAdapter extends RecyclerView.Adapter<SelectedItemsAdapter.MyViewHolder> {
@@ -240,7 +259,7 @@ public class ViewPackageDetails_Activity extends Activity {
                         new MyPackage_Activity.GetPackages().execute(ConsumerID);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
-                        builder.setMessage("Address Details Deleted Successfully");
+                        builder.setMessage("Package Deleted Successfully");
                         builder.setIcon(R.drawable.icon_success);
                         builder.setTitle("Success");
                         builder.setCancelable(false);
