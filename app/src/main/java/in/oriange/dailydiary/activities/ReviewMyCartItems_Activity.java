@@ -137,7 +137,7 @@ public class ReviewMyCartItems_Activity extends Activity {
 
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int pos) {
-            int position = holder.getAdapterPosition();
+            final int position = holder.getAdapterPosition();
 
             final PackageItemsModel selectedItem = selectedItemsList.get(position);
             final int[] totalCount = {Integer.parseInt(selectedItem.getTotalProductCount())};
@@ -145,7 +145,7 @@ public class ReviewMyCartItems_Activity extends Activity {
             holder.tv_productname.setText(selectedItem.getItem_Name());
             holder.tv_productprice.setText("₹ " + selectedItem.getUnitPrice());
             holder.edt_totalcount.setText("" + totalCount[0]);
-            holder.tv_unit.setText("Qty/ "+selectedItem.getUoM_Name());
+            holder.tv_unit.setText("Qty/ " + selectedItem.getUoM_Name());
             holder.tv_totalrate.setText(selectedItem.getTotalProductrate());
 
             Picasso.with(context)
@@ -167,20 +167,35 @@ public class ReviewMyCartItems_Activity extends Activity {
             holder.imv_remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (totalCount[0] > 1) {
 
+                        totalCount[0] = totalCount[0] - 1;
+                        holder.edt_totalcount.setText("" + totalCount[0]);
+                        holder.tv_totalrate.setText("₹ " + Integer.parseInt(selectedItem.getUnitPrice()) * totalCount[0]);
+
+                        selectedItemsList.get(position).setTotalProductCount(holder.edt_totalcount.getText().toString().trim());
+                        selectedItemsList.get(position).setTotalProductrate(holder.tv_totalrate.getText().toString().trim());
+                    }
                 }
             });
 
             holder.imv_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    totalCount[0] = totalCount[0] + 1;
+                    holder.edt_totalcount.setText("" + totalCount[0]);
+                    holder.tv_totalrate.setText("₹ " + Integer.parseInt(selectedItem.getUnitPrice()) * totalCount[0]);
 
+                    selectedItemsList.get(position).setTotalProductCount(holder.edt_totalcount.getText().toString().trim());
+                    selectedItemsList.get(position).setTotalProductrate(holder.tv_totalrate.getText().toString().trim());
                 }
             });
 
             holder.imv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    selectedItemsList.remove(position);
+                    rv_itemlist.setAdapter(new SelectedItemsAdapter());
 
                 }
             });

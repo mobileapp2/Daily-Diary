@@ -78,6 +78,15 @@ public class Shopping_Fragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (icon_cart != null) {
+            setCount(context, String.valueOf(packageItemsList.size()), icon_cart);
+        }
+    }
+
     private void init(View rootView) {
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

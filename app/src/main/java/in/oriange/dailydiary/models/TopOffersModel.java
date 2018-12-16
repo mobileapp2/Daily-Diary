@@ -12,53 +12,43 @@ public class TopOffersModel {
 
     private String offerId;
 
-    public String getOfferDescription ()
-    {
+    public String getOfferDescription() {
         return offerDescription;
     }
 
-    public void setOfferDescription (String offerDescription)
-    {
+    public void setOfferDescription(String offerDescription) {
         this.offerDescription = offerDescription;
     }
 
-    public String getExpiryDate ()
-    {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate (String expiryDate)
-    {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public String getOfferImage ()
-    {
+    public String getOfferImage() {
         return offerImage;
     }
 
-    public void setOfferImage (String offerImage)
-    {
+    public void setOfferImage(String offerImage) {
         this.offerImage = offerImage;
     }
 
-    public String getItemId ()
-    {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId (String itemId)
-    {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
-    public String getOfferId ()
-    {
+    public String getOfferId() {
         return offerId;
     }
 
-    public void setOfferId (String offerId)
-    {
+    public void setOfferId(String offerId) {
         this.offerId = offerId;
     }
 }

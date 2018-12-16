@@ -13,7 +13,6 @@ import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.DefaultDayViewAdapter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +70,7 @@ public class SelectDateForPackage_Activity extends Activity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_next:
                 List<Date> selectedDates = calendar.getSelectedDates();
 

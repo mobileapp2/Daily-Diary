@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.2"
-                android:src="@drawable/icon_plus"/>
+                android:src="@drawable/icon_plus" />
 
             <TextView
                 android:id="@+id/tv_unit"

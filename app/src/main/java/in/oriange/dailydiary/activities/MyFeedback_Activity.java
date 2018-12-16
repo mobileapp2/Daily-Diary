@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 import in.oriange.dailydiary.R;
 import in.oriange.dailydiary.adapters.GetFeedbackListAdapter;
-import in.oriange.dailydiary.adapters.GetPackageListAdapter;
 import in.oriange.dailydiary.models.PackagesModel;
 import in.oriange.dailydiary.models.PackagesPojo;
 import in.oriange.dailydiary.utilities.ApplicationConstants;

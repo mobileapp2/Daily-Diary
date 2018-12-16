@@ -135,6 +135,11 @@ public class CreatePackage_Activity extends Activity {
             @Override
             public void onClick(View v) {
 
+                if (totalFinalAmount == 0) {
+                    Utilities.showAlertDialog(context, "Alert", "Cannot create package", false);
+                    return;
+                }
+
                 final EditText edt_packagename = new EditText(context);
                 float dpi = context.getResources().getDisplayMetrics().density;
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);

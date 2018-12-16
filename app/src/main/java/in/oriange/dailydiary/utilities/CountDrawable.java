@@ -49,23 +49,22 @@ public class CountDrawable extends Drawable {
 
         // Position the badge in the top-right quadrant of the icon.
 
-	        /*Using Math.max rather than Math.min */
+        /*Using Math.max rather than Math.min */
 
         float radius = ((Math.max(width, height) / 2)) / 2;
-        float centerX = (width - radius - 1) +5;
-        float centerY = radius -5;
-        if(mCount.length() <= 2){
+        float centerX = (width - radius - 1) + 5;
+        float centerY = radius - 5;
+        if (mCount.length() <= 2) {
             // Draw badge circle.
-            canvas.drawCircle(centerX, centerY, (int)(radius+5.5), mBadgePaint);
-        }
-        else{
-            canvas.drawCircle(centerX, centerY, (int)(radius+6.5), mBadgePaint);
+            canvas.drawCircle(centerX, centerY, (int) (radius + 5.5), mBadgePaint);
+        } else {
+            canvas.drawCircle(centerX, centerY, (int) (radius + 6.5), mBadgePaint);
         }
         // Draw badge count text inside the circle.
         mTextPaint.getTextBounds(mCount, 0, mCount.length(), mTxtRect);
         float textHeight = mTxtRect.bottom - mTxtRect.top;
         float textY = centerY + (textHeight / 2f);
-        if(mCount.length() > 2)
+        if (mCount.length() > 2)
             canvas.drawText("99+", centerX, textY, mTextPaint);
         else
             canvas.drawText(mCount, centerX, textY, mTextPaint);

@@ -56,7 +56,7 @@ public class ViewPackageDetails_Activity extends Activity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_viewpackage_details);
+        setContentView(R.layout.activity_view_packagedetails);
 
         init();
         setUpToolbar();
