@@ -16,8 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import in.oriange.dailydiary.R;
-import in.oriange.dailydiary.activities.Address_Activity;
+import in.oriange.dailydiary.activities.MyAddress_Activity;
 import in.oriange.dailydiary.activities.Login_Activity;
+import in.oriange.dailydiary.activities.MyPackage_Activity;
 import in.oriange.dailydiary.activities.Register_Activity;
 import in.oriange.dailydiary.utilities.ApplicationConstants;
 import in.oriange.dailydiary.utilities.UserSessionManager;
@@ -29,7 +30,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
     private UserSessionManager session;
     private Button btn_login, btn_register, btn_logout;
     private TextView tv_name, tv_email, tv_mobileno;
-    private LinearLayout ll_loginregister, ll_profileinfo, ll_address;
+    private LinearLayout ll_loginregister, ll_profileinfo, ll_address, ll_mypackage;
     private String First_Name, Middle_Name, Last_Name, Mobile_Number, Email_ID;
 
     @Override
@@ -94,6 +95,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
         ll_loginregister = view.findViewById(R.id.ll_loginregister);
         ll_profileinfo = view.findViewById(R.id.ll_profileinfo);
         ll_address = view.findViewById(R.id.ll_address);
+        ll_mypackage = view.findViewById(R.id.ll_mypackage);
 
     }
 
@@ -106,6 +108,7 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
         btn_register.setOnClickListener(this);
         btn_logout.setOnClickListener(this);
         ll_address.setOnClickListener(this);
+        ll_mypackage.setOnClickListener(this);
     }
 
     @Override
@@ -125,7 +128,16 @@ public class BottomSheetMenu_Fragment extends BottomSheetDialogFragment implemen
 
             case R.id.ll_address:
                 if (session.isUserLoggedIn()) {
-                    startActivity(new Intent(context, Address_Activity.class));
+                    startActivity(new Intent(context, MyAddress_Activity.class));
+                } else {
+                    Utilities.showMessageString(context, "Please login first");
+                    startActivity(new Intent(context, Login_Activity.class));
+                }
+                break;
+
+            case R.id.ll_mypackage:
+                if (session.isUserLoggedIn()) {
+                    startActivity(new Intent(context, MyPackage_Activity.class));
                 } else {
                     Utilities.showMessageString(context, "Please login first");
                     startActivity(new Intent(context, Login_Activity.class));
