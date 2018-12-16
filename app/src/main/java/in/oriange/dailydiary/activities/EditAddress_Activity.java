@@ -232,7 +232,7 @@ public class EditAddress_Activity extends Activity implements View.OnClickListen
                     message = mainObj.getString("message");
                     if (type.equalsIgnoreCase("success")) {
 
-                        new Address_Activity.GetAddresses().execute(ConsumerID);
+                        new MyAddress_Activity.GetAddresses().execute(ConsumerID);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
                         builder.setMessage("Address Details Updated Successfully");
@@ -290,7 +290,7 @@ public class EditAddress_Activity extends Activity implements View.OnClickListen
                     message = mainObj.getString("message");
                     if (type.equalsIgnoreCase("success")) {
 
-                        new Address_Activity.GetAddresses().execute(ConsumerID);
+                        new MyAddress_Activity.GetAddresses().execute(ConsumerID);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
                         builder.setMessage("Address Details Deleted Successfully");
@@ -316,7 +316,6 @@ public class EditAddress_Activity extends Activity implements View.OnClickListen
             }
         }
     }
-
 
     private void setUpToolbar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);

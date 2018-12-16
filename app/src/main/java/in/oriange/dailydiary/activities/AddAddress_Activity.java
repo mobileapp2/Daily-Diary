@@ -203,7 +203,7 @@ public class AddAddress_Activity extends Activity implements View.OnClickListene
                     message = mainObj.getString("message");
                     if (type.equalsIgnoreCase("success")) {
 
-                        new Address_Activity.GetAddresses().execute(ConsumerID);
+                        new MyAddress_Activity.GetAddresses().execute(ConsumerID);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
                         builder.setMessage("Address Details Saved Successfully");
