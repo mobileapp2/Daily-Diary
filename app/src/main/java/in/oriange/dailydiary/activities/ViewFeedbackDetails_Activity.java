@@ -118,7 +118,7 @@ public class ViewFeedbackDetails_Activity extends Activity implements View.OnCli
             tv_nofeedback.setVisibility(View.GONE);
 
             tv_feedback.setText(feedback.get(0).getFeedback());
-            rb_feedbackstars.setRating(Float.parseFloat(feedback.get(0).getFeedbackID()));
+            rb_feedbackstars.setRating(Float.parseFloat(feedback.get(0).getStarRating()));
 
         } else {
             tv_feedback.setVisibility(View.GONE);
@@ -150,7 +150,7 @@ public class ViewFeedbackDetails_Activity extends Activity implements View.OnCli
 
                 if (feedback != null) {
                     edt_feedback.setText(feedback.get(0).getFeedback());
-                    rb_feedbackstars.setRating(Float.parseFloat(feedback.get(0).getFeedbackID()));
+                    rb_feedbackstars.setRating(Float.parseFloat(feedback.get(0).getStarRating()));
                 }
 
                 alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -171,8 +171,6 @@ public class ViewFeedbackDetails_Activity extends Activity implements View.OnCli
                                         edt_feedback.getText().toString().trim(),
                                         String.valueOf(rb_feedbackstars.getRating()));
                             }
-
-
                         } else {
                             Utilities.showSnackBar(ll_mainlayout, "Please Check Internet Connection");
                         }

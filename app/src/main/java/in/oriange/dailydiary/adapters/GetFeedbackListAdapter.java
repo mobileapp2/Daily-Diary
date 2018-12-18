@@ -52,7 +52,7 @@ public class GetFeedbackListAdapter extends RecyclerView.Adapter<GetFeedbackList
             holder.tv_nofeedback.setVisibility(View.GONE);
 
             holder.tv_feedback.setText(feedback.get(0).getFeedback());
-            holder.rb_feedbackstars.setRating(Float.parseFloat(feedback.get(0).getFeedbackID()));
+            holder.rb_feedbackstars.setRating(Float.parseFloat(feedback.get(0).getStarRating()));
 
         } else {
             holder.tv_feedback.setVisibility(View.GONE);
