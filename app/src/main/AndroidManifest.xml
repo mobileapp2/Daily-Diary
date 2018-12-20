@@ -108,6 +108,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activities.PaymentGateway_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <meta-data
+            android:name="instamojo.orderauth.url"
+            android:value="http://mazalatur.com/DailyDiary/access_token.php" />
     </application>
+
+    <uses-permission-sdk-23 android:name="android.permission.RECEIVE_SMS" />
+
+    <uses-permission-sdk-23 android:name="android.permission.READ_SMS" />
+
+    <uses-permission-sdk-23 android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 
 </manifest>

@@ -148,7 +148,7 @@ public class CreatePackage_Activity extends Activity {
                 alertDialogBuilder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        createPackageJson(edt_packagename.getText().toString().trim());
+                        startActivity(new Intent(context, PaymentGateway_Activity.class));
                     }
                 });
 
