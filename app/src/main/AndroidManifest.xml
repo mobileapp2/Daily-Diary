@@ -115,7 +115,7 @@
 
         <meta-data
             android:name="instamojo.orderauth.url"
-            android:value="http://mazalatur.com/DailyDiary/access_token.php" />
+            android:value="https://mazalatur.com/DailyDiary/access_token.php" />
     </application>
 
     <uses-permission-sdk-23 android:name="android.permission.RECEIVE_SMS" />

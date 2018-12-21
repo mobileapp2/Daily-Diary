@@ -1,8 +1,11 @@
 package in.oriange.dailydiary.activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -13,6 +16,7 @@ import instamojo.library.InstamojoPay;
 import instamojo.library.InstapayListener;
 
 public class PaymentGateway_Activity extends Activity {
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,9 @@ public class PaymentGateway_Activity extends Activity {
         setContentView(R.layout.activity_payment_gateway);
         // Call the function callInstamojo to start payment here
 
-        callInstamojoPay("priyeshpawar07@gmail.com", "8149115089", "10", "Test Buy", "Priyesh Pawar");
+        context = PaymentGateway_Activity.this;
+
+        callInstamojoPay("priyeshpawar07@gmail.com", "8149115089", "100", "Test Buy", "Priyesh Pawar");
     }
 
     private void callInstamojoPay(String email, String phone, String amount, String purpose, String buyername) {
@@ -43,20 +49,47 @@ public class PaymentGateway_Activity extends Activity {
         initListener();
         instamojoPay.start(activity, pay, listener);
     }
+
     InstapayListener listener;
 
     private void initListener() {
         listener = new InstapayListener() {
             @Override
             public void onSuccess(String response) {
-                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG)
-                        .show();
+//                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+//
+                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
+                builder.setMessage("Payment Done Successfully");
+                builder.setIcon(R.drawable.icon_success);
+                builder.setTitle("Success");
+                builder.setCancelable(false);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+
+                    }
+                });
+                AlertDialog alertD = builder.create();
+                alertD.show();
             }
 
             @Override
             public void onFailure(int code, String reason) {
-                Toast.makeText(getApplicationContext(), "Failed: " + reason, Toast.LENGTH_LONG)
-                        .show();
+//                Toast.makeText(getApplicationContext(), "Failed: " + reason, Toast.LENGTH_LONG).show();
+//
+                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
+                builder.setMessage(reason);
+                builder.setIcon(R.drawable.icon_alertred);
+                builder.setTitle("Fail");
+                builder.setCancelable(false);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+
+                    }
+                });
+                AlertDialog alertD = builder.create();
+                alertD.show();
             }
         };
     }
