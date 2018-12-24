@@ -113,7 +113,7 @@ public class MyAddress_Activity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imv_addnew:
-                startActivity(new Intent(context, AddAddress_Activity.class));
+                startActivity(new Intent(context, AddAddress_Activity.class).putExtra("TYPE", "1"));
         }
     }
 

@@ -53,11 +53,21 @@
             android:padding="10dp">
 
 
-            <ImageView
-                android:layout_width="180dp"
-                android:layout_height="90dp"
+            <!--<ImageView-->
+                <!--android:layout_width="180dp"-->
+                <!--android:layout_height="90dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/img_loginbanner" />-->
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/img_loginbanner" />
+                android:gravity="center"
+                android:text="Daily Diary"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
 
             <com.rengwuxian.materialedittext.MaterialEditText

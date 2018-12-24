@@ -64,7 +64,7 @@
                     android:id="@+id/edt_addressname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address Name *"
+                    android:hint="Address Name (Nick Name) *"
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"

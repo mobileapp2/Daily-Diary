@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
@@ -34,15 +35,15 @@ import in.oriange.dailydiary.utilities.UserSessionManager;
 import in.oriange.dailydiary.utilities.Utilities;
 import in.oriange.dailydiary.utilities.WebServiceCalls;
 
-public class SelectAddressForPackage_Activity extends Activity {
+public class SelectAddressForPackage_Activity extends Activity implements View.OnClickListener {
 
-    private Context context;
+    private static Context context;
     private UserSessionManager session;
     private LinearLayout ll_mainlayout;
-    private LinearLayout ll_nothingtoshow;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView rv_address;
-
+    private static LinearLayout ll_nothingtoshow;
+    private static SwipeRefreshLayout swipeRefreshLayout;
+    private static RecyclerView rv_address;
+    private ImageView imv_addnew;
     private String ConsumerID;
     private List<Date> selectedDates;
     private static ArrayList<AddressesModel> addressList;
@@ -53,10 +54,10 @@ public class SelectAddressForPackage_Activity extends Activity {
         setContentView(R.layout.activity_selectaddress_forpackage);
 
         init();
+        setUpToolBar();
         getSessionData();
         setDefault();
         setEventHandler();
-        setUpToolBar();
     }
 
     private void init() {
@@ -88,7 +89,6 @@ public class SelectAddressForPackage_Activity extends Activity {
 
         selectedDates = (List<Date>) getIntent().getSerializableExtra("selectedDates");
 
-
         if (Utilities.isInternetAvailable(context)) {
             new GetAddresses().execute(ConsumerID);
             swipeRefreshLayout.setRefreshing(true);
@@ -98,6 +98,7 @@ public class SelectAddressForPackage_Activity extends Activity {
             ll_nothingtoshow.setVisibility(View.VISIBLE);
             swipeRefreshLayout.setVisibility(View.GONE);
         }
+
     }
 
     private void setEventHandler() {
@@ -126,9 +127,20 @@ public class SelectAddressForPackage_Activity extends Activity {
                 startActivity(intent);
             }
         }));
+
+        imv_addnew.setOnClickListener(this);
     }
 
-    public class GetAddresses extends AsyncTask<String, Void, String> {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imv_addnew:
+                startActivity(new Intent(context, AddAddress_Activity.class).putExtra("TYPE", "2"));
+        }
+    }
+
+
+    public static class GetAddresses extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -184,6 +196,7 @@ public class SelectAddressForPackage_Activity extends Activity {
 
     private void setUpToolBar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);
+        imv_addnew = findViewById(R.id.imv_addnew);
         mToolbar.setTitle(Html.fromHtml("<font color='#00000'>Select Address</font>"));
         mToolbar.setNavigationIcon(R.drawable.icon_backarrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -35,7 +35,7 @@ public class AddAddress_Activity extends Activity implements View.OnClickListene
     private MaterialEditText edt_fullname, edt_addressname, edt_addressone, edt_addresstwo, edt_country,
             edt_state, edt_city, edt_pincode, edt_moblieno, edt_email;
 
-    private String ConsumerID;
+    private String ConsumerID, Mobile_Number, Email_ID, TYPE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,9 @@ public class AddAddress_Activity extends Activity implements View.OnClickListene
                     ApplicationConstants.KEY_LOGIN_INFO));
             JSONObject json = user_info.getJSONObject(0);
             ConsumerID = json.getString("ConsumerID");
+            Mobile_Number = json.getString("Mobile_Number");
+            Email_ID = json.getString("Email_ID");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,6 +96,10 @@ public class AddAddress_Activity extends Activity implements View.OnClickListene
 
     private void setDefaults() {
 
+        TYPE = getIntent().getStringExtra("TYPE");
+
+        edt_moblieno.setText(Mobile_Number);
+        edt_email.setText(Email_ID);
     }
 
     private void setEventHandler() {
@@ -203,8 +210,6 @@ public class AddAddress_Activity extends Activity implements View.OnClickListene
                     message = mainObj.getString("message");
                     if (type.equalsIgnoreCase("success")) {
 
-                        new MyAddress_Activity.GetAddresses().execute(ConsumerID);
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
                         builder.setMessage("Address Details Saved Successfully");
                         builder.setIcon(R.drawable.icon_success);
@@ -218,6 +223,14 @@ public class AddAddress_Activity extends Activity implements View.OnClickListene
                         });
                         AlertDialog alertD = builder.create();
                         alertD.show();
+
+
+                        if (TYPE.equals("1")) {
+                            new MyAddress_Activity.GetAddresses().execute(ConsumerID);
+                        } else if (TYPE.equals("2")) {
+                            new SelectAddressForPackage_Activity.GetAddresses().execute(ConsumerID);
+                        }
+
                     } else {
 
                     }

@@ -197,7 +197,7 @@ public class Utilities {
         alertDialog.setTitle("GPS Settings");
         alertDialog.setCancelable(false);
         alertDialog.setIcon(R.drawable.icon_alertred);
-        alertDialog.setMessage("GPS is not enabled. Please turn on the location from settings.");
+        alertDialog.setMessage("GPS is not enabled. Please turn on the icon_location from settings.");
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -220,7 +220,7 @@ public class Utilities {
         alertDialog.setTitle("Permission");
         alertDialog.setCancelable(false);
         alertDialog.setIcon(R.drawable.icon_alertred);
-        alertDialog.setMessage("Please grant permission for location access");
+        alertDialog.setMessage("Please grant permission for icon_location access");
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 context.startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,

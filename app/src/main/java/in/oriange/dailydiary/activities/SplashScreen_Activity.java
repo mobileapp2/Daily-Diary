@@ -16,7 +16,6 @@ public class SplashScreen_Activity extends Activity {
 
 
     private Context context;
-    private ImageView imv_slash;
     private int secondsDelayed = 1;
     private UserSessionManager session;
 
@@ -34,7 +33,6 @@ public class SplashScreen_Activity extends Activity {
     private void init() {
         context = SplashScreen_Activity.this;
         session = new UserSessionManager(context);
-//        imv_slash.startAnimation(zoomAnimation);
 
         new Handler().postDelayed(new Runnable() {
             public void run() {

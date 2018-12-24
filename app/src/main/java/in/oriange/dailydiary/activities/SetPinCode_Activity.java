@@ -145,7 +145,7 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
                                             if (nwLocation != null) {
                                                 getAddressDetails(nwLocation.getLatitude(), nwLocation.getLongitude());
                                             } else {
-                                                Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
+                                                Utilities.showAlertDialog(context, "Alert", "Unable to detect your current icon_location, please try again", false);
                                                 cv_locationdetails.setVisibility(View.GONE);
                                             }
                                         }
@@ -158,7 +158,7 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
                                         if (nwLocation != null) {
                                             getAddressDetails(nwLocation.getLatitude(), nwLocation.getLongitude());
                                         } else {
-                                            Utilities.showAlertDialog(context, "Alert", "Unable to detect your current location, please try again", false);
+                                            Utilities.showAlertDialog(context, "Alert", "Unable to detect your current icon_location, please try again", false);
                                             cv_locationdetails.setVisibility(View.GONE);
                                         }
                                     }
@@ -208,20 +208,20 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
             List<Address> addresses;
 
             geocoder = new Geocoder(this, Locale.getDefault());
-            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max icon_location result to returned, by documents it recommended 1 to 5
             if (addresses != null && !addresses.isEmpty()) {
                 tv_state.setText(addresses.get(0).getAdminArea());
                 tv_city.setText(addresses.get(0).getLocality());
                 tv_locality.setText(addresses.get(0).getSubLocality());
                 tv_pincode.setText(addresses.get(0).getPostalCode());
             } else {
-                Utilities.showAlertDialog(context, "Alert", "Unable to get address from this location. Please try again or enter pincode manually", false);
+                Utilities.showAlertDialog(context, "Alert", "Unable to get address from this icon_location. Please try again or enter pincode manually", false);
                 cv_locationdetails.setVisibility(View.GONE);
             }
 
             cv_locationdetails.setVisibility(View.VISIBLE);
         } catch (Exception e) {
-            Utilities.showAlertDialog(context, "Alert", "Unable to get address from this location. Please try again or enter pincode manually", false);
+            Utilities.showAlertDialog(context, "Alert", "Unable to get address from this icon_location. Please try again or enter pincode manually", false);
             cv_locationdetails.setVisibility(View.GONE);
         }
 

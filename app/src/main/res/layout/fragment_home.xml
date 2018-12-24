@@ -26,9 +26,10 @@
                 android:focusable="false"
                 android:longClickable="false"
                 android:text="Pick Location"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:backgroundTint="@color/black" />
+                android:textColor="@color/darkGray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/darkGray" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -83,7 +84,8 @@
                     android:layout_height="40dp"
                     android:layout_weight="0.3"
                     android:text="View All"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
