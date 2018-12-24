@@ -67,6 +67,7 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -77,6 +78,7 @@
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -87,6 +89,7 @@
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -97,6 +100,7 @@
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -107,6 +111,7 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -117,6 +122,7 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -127,6 +133,7 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -138,6 +145,7 @@
                     android:maxLength="6"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -149,6 +157,7 @@
                     android:maxLength="10"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -159,6 +168,7 @@
                     android:inputType="textEmailAddress"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
             </LinearLayout>

@@ -44,9 +44,10 @@
                 android:hint="Enter Pincode"
                 android:inputType="number"
                 android:maxLength="6"
-                android:textColorHighlight="@color/colorAccent"
                 app:met_floatingLabel="highlight"
-                app:met_maxCharacters="6" />
+                app:met_maxCharacters="6"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_textColorHint="@color/mediumGray" />
 
             <Button
                 android:id="@+id/btn_search"

@@ -58,7 +58,8 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_addressname"
@@ -68,7 +69,8 @@
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_addressone"
@@ -78,6 +80,7 @@
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -88,7 +91,8 @@
                     android:inputType="textNoSuggestions|textCapSentences|textMultiLine"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_country"
@@ -99,6 +103,7 @@
                     android:text="India"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
                     app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -109,7 +114,8 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_city"
@@ -119,7 +125,8 @@
                     android:inputType="textNoSuggestions|textCapWords"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_pincode"
@@ -130,7 +137,8 @@
                     android:maxLength="6"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_moblieno"
@@ -141,7 +149,8 @@
                     android:maxLength="10"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_email"
@@ -151,7 +160,8 @@
                     android:inputType="textEmailAddress"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"  />
 
             </LinearLayout>
 
