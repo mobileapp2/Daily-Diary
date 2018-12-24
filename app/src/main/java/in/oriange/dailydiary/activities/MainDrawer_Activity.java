@@ -17,7 +17,7 @@ import in.oriange.dailydiary.fragments.BottomSheetMenu_Fragment;
 import in.oriange.dailydiary.fragments.Home_Fragment;
 import in.oriange.dailydiary.fragments.Notification_Fragment;
 import in.oriange.dailydiary.fragments.Shopping_Fragment;
-import in.oriange.dailydiary.fragments.Time_Fragment;
+import in.oriange.dailydiary.fragments.ContactUs_Fragment;
 import in.oriange.dailydiary.utilities.UserSessionManager;
 
 public class MainDrawer_Activity extends AppCompatActivity {
@@ -53,7 +53,7 @@ public class MainDrawer_Activity extends AppCompatActivity {
         bottom_navigation.addSpaceItem(new SpaceItem("", R.drawable.icon_home));
         bottom_navigation.addSpaceItem(new SpaceItem("", R.drawable.icon_products));
         bottom_navigation.addSpaceItem(new SpaceItem("", R.drawable.icon_notification));
-        bottom_navigation.addSpaceItem(new SpaceItem("", R.drawable.icon_time));
+        bottom_navigation.addSpaceItem(new SpaceItem("", R.drawable.icon_contactus));
         bottom_navigation.shouldShowFullBadgeText(false);
 
         bottom_navigation.setCentreButtonIcon(R.drawable.icon_user);
@@ -107,7 +107,7 @@ public class MainDrawer_Activity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        fragmentTransaction.replace(R.id.fl_fragmentlayout, new Time_Fragment());
+                        fragmentTransaction.replace(R.id.fl_fragmentlayout, new ContactUs_Fragment());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         break;
