@@ -4,6 +4,7 @@
     android:id="@+id/ll_mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -59,7 +60,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_addressname"
@@ -70,7 +71,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_addressone"
@@ -92,7 +93,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_country"
@@ -115,7 +116,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_city"
@@ -126,7 +127,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_pincode"
@@ -138,7 +139,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_moblieno"
@@ -150,7 +151,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_email"
@@ -161,7 +162,7 @@
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/colorAccent"
-                    app:met_textColorHint="@color/mediumGray"  />
+                    app:met_textColorHint="@color/mediumGray" />
 
             </LinearLayout>
 

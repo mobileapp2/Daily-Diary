@@ -3,6 +3,7 @@
     android:id="@+id/ll_mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -72,33 +73,45 @@
         android:layout_height="0px"
         android:layout_weight="1" />
 
-    <LinearLayout
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_margin="4dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="View package summary"
-            android:textColor="@color/darkGray"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <Button
-            android:id="@+id/btn_next"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:drawableRight="@drawable/quantum_ic_play_arrow_white_24"
-            android:text="Next" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="View package summary"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:drawableRight="@drawable/quantum_ic_play_arrow_white_24"
+                android:text="Next" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
 
 
 </LinearLayout>

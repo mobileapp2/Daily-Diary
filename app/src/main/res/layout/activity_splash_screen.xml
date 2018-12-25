@@ -2,22 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <!--<ImageView-->
-        <!--android:id="@+id/imv_slash"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:src="@drawable/img_splashscreen" />-->
+    <!--android:id="@+id/imv_slash"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--android:src="@drawable/img_splashscreen" />-->
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:text="Daily Diary"
         android:textColor="@color/darkGray"
-        android:textStyle="bold"
         android:textSize="35dp"
-        android:gravity="center"/>
+        android:textStyle="bold" />
 
 </RelativeLayout>
