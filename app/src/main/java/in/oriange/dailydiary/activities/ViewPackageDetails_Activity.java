@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -46,7 +47,7 @@ public class ViewPackageDetails_Activity extends Activity implements View.OnClic
     private RecyclerView rv_itemlist;
     private TextView tv_addressdetails, tv_addressandfullname, tv_status;
     private ImageView imv_delete;
-
+    private CardView cv_payment;
     private Button btn_next, btn_delivarydates;
     private String ConsumerID;
     private PackagesModel packageDetails;
@@ -71,6 +72,7 @@ public class ViewPackageDetails_Activity extends Activity implements View.OnClic
         pd = new ProgressDialog(context, R.style.CustomDialogTheme);
 
         ll_mainlayout = findViewById(R.id.ll_mainlayout);
+        cv_payment = findViewById(R.id.cv_payment);
         tv_addressandfullname = findViewById(R.id.tv_addressandfullname);
         tv_addressdetails = findViewById(R.id.tv_addressdetails);
         tv_status = findViewById(R.id.tv_status);
@@ -102,6 +104,14 @@ public class ViewPackageDetails_Activity extends Activity implements View.OnClic
     private void setDefaults() {
         packageDetails = (PackagesModel) getIntent().getSerializableExtra("packageDetails");
 
+        String statusId = packageDetails.getStatus_Id();
+
+        if (statusId.equals("2") || statusId.equals("3")) {
+            cv_payment.setVisibility(View.VISIBLE);
+        } else {
+            cv_payment.setVisibility(View.GONE);
+        }
+
 
         tv_addressandfullname.setText(packageDetails.getFull_name() + ", " + packageDetails.getAddress_name());
 
@@ -126,6 +136,23 @@ public class ViewPackageDetails_Activity extends Activity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_next:
+
+                int itemsAmount = 0, totalFinalAmount = 0;
+                for (int i = 0; i < packageItemsList.size(); i++) {
+                    itemsAmount = itemsAmount + Integer.parseInt(packageItemsList.get(i).getUnitPrice())
+                            * Integer.parseInt(packageItemsList.get(i).getQuantity());
+                }
+
+                totalFinalAmount = itemsAmount * packageDetails.getDeliveryDates().size();
+
+                Intent intent = new Intent(context, PaymentGateway_Activity.class);
+                intent.putExtra("packageId", packageDetails.getPackageID());
+                intent.putExtra("totalFinalAmount", totalFinalAmount);
+                intent.putExtra("packageName", packageDetails.getPackageName());
+                startActivity(intent);
+
+                finish();
+
                 break;
             case R.id.btn_delivarydates:
                 startActivity(new Intent(context, ViewDelivaryDates_Activity.class)

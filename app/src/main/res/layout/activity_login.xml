@@ -77,10 +77,10 @@
                 android:hint="Username"
                 android:inputType="textNoSuggestions"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHighlight="@color/colorAccent"
                 android:textSize="16sp"
-                app:met_floatingLabel="highlight" />
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_textColorHint="@color/mediumGray"/>
 
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -91,10 +91,10 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHighlight="@color/colorAccent"
                 android:textSize="16sp"
-                app:met_floatingLabel="highlight" />
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_textColorHint="@color/mediumGray" />
 
             <TextView
                 android:id="@+id/tv_forgotpass"

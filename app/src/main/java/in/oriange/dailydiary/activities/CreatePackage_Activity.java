@@ -32,6 +32,7 @@ import com.google.gson.JsonPrimitive;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +64,8 @@ public class CreatePackage_Activity extends Activity {
     private ArrayList<PackageItemsModel> selectedItemsList;
     private int totalFinalAmount;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private EditText edt_packagename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class CreatePackage_Activity extends Activity {
                     return;
                 }
 
-                final EditText edt_packagename = new EditText(context);
+                edt_packagename = new EditText(context);
                 float dpi = context.getResources().getDisplayMetrics().density;
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
                 alertDialogBuilder.setTitle("Package Name");
@@ -148,7 +150,7 @@ public class CreatePackage_Activity extends Activity {
                 alertDialogBuilder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(context, PaymentGateway_Activity.class));
+                        createPackageJson(edt_packagename.getText().toString().trim());
                     }
                 });
 
@@ -293,9 +295,12 @@ public class CreatePackage_Activity extends Activity {
                     type = mainObj.getString("type");
                     message = mainObj.getString("message");
                     if (type.equalsIgnoreCase("success")) {
+                        JSONObject jsonObject = mainObj.getJSONObject("data");
+                        final String packageId = jsonObject.getString("package_id");
+
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
-                        builder.setMessage("Order Placed Successfully");
+                        builder.setMessage("Package Created Successfully");
                         builder.setIcon(R.drawable.icon_success);
                         builder.setTitle("Success");
                         builder.setCancelable(false);
@@ -304,6 +309,13 @@ public class CreatePackage_Activity extends Activity {
                                 constantData.setPackageItemsList(new ArrayList<PackageItemsModel>());
                                 finishAffinity();
                                 startActivity(new Intent(context, MainDrawer_Activity.class));
+
+                                Intent intent = new Intent(context, PaymentGateway_Activity.class);
+                                intent.putExtra("packageId", packageId);
+                                intent.putExtra("totalFinalAmount", totalFinalAmount);
+                                intent.putExtra("packageName", edt_packagename.getText().toString().trim());
+                                startActivity(intent);
+
                             }
                         });
                         AlertDialog alertD = builder.create();
@@ -319,7 +331,6 @@ public class CreatePackage_Activity extends Activity {
             }
         }
     }
-
 
     private void setUpToolBar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);

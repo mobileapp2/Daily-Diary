@@ -68,10 +68,10 @@
                     android:hint="First Name *"
                     android:inputType="textNoSuggestions|textCapWords"
                     android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHighlight="@color/colorAccent"
                     android:textSize="16sp"
-                    app:met_floatingLabel="highlight" />
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_middlename"
@@ -80,10 +80,10 @@
                     android:hint="Middle Name"
                     android:inputType="textNoSuggestions|textCapWords"
                     android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHighlight="@color/colorAccent"
                     android:textSize="16sp"
-                    app:met_floatingLabel="highlight" />
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_lastname"
@@ -92,10 +92,10 @@
                     android:hint="Last Name *"
                     android:inputType="textNoSuggestions|textCapWords"
                     android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHighlight="@color/colorAccent"
                     android:textSize="16sp"
-                    app:met_floatingLabel="highlight" />
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_moblieno"
@@ -106,7 +106,8 @@
                     android:maxLength="10"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_email"
@@ -116,7 +117,8 @@
                     android:inputType="textEmailAddress"
                     android:textSize="14sp"
                     app:met_floatingLabel="highlight"
-                    app:met_textColorHint="@color/mediumGray" />
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_password"
@@ -126,10 +128,10 @@
                     android:hint="Password *"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHighlight="@color/colorAccent"
                     android:textSize="16sp"
-                    app:met_floatingLabel="highlight" />
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_textColorHint="@color/mediumGray"/>
 
                 <Button
                     android:id="@+id/btn_register"
