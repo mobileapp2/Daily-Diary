@@ -29,18 +29,18 @@
             <ImageView
                 android:id="@+id/imv_productimage"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
                 android:scaleType="fitCenter"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_nopreview"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:gravity="center"
                 android:text="No Preview Available"
                 android:textColor="@color/darkGray"
-                android:textSize="25sp" />
+                android:textSize="22sp" />
 
         </FrameLayout>
 
@@ -113,9 +113,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:textColor="@color/textColorProduct"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Button
@@ -124,9 +124,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:text="Add"
-                android:textSize="14sp" />
+                android:layout_weight="0.7"
+                android:text="Add to cart"
+                android:textSize="12sp" />
 
         </LinearLayout>
 

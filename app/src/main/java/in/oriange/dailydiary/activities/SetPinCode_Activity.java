@@ -263,12 +263,11 @@ public class SetPinCode_Activity extends Activity implements View.OnClickListene
         }
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        hideSoftKeyboard(SetPinCode_Activity.this);
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        hideSoftKeyboard(SetPinCode_Activity.this);
+//    }
 
     @SuppressLint("MissingPermission")
     public Location getLocation() {

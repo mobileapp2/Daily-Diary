@@ -198,26 +198,32 @@
         android:id="@+id/ll_loginregister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <Button
             android:id="@+id/btn_login"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="0.5"
-            android:text="LOGIN" />
+            android:background="@drawable/button_backgroundborder"
+            android:text="LOGIN"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btn_register"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="0.5"
-            android:text="REGISTER" />
+            android:background="@drawable/button_background"
+            android:text="REGISTER"
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
 
@@ -225,8 +231,11 @@
         android:id="@+id/btn_logout"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_backgroundborder"
         android:text="LOGOUT" />
 
 

@@ -139,7 +139,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/style_button"
+                    android:background="@drawable/button_backgroundborder"
                     android:text="Register"
                     android:textColor="@color/white"
                     android:textSize="14sp"
